@@ -1,31 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:stretchColumns="1">
-    <TableRow>
-        <Button
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentLeft="true"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:stretchColumns="*"
+
+    >
+    <TableRow android:layout_weight="1">
+
+        <Button android:layout_height="fill_parent"
             android:text="@string/btnChallenges"
-            android:padding="3dip" />
+            android:padding="3dip"
+            android:layout_column="0"
+            android:layout_span="2" />
     </TableRow>
 
-    <TableRow>
-        <Button
+    <TableRow android:layout_weight="1">
+
+        <Button android:layout_height="fill_parent"
             android:text="@string/btnRestaurants"
-            android:padding="3dip" />
-        <Button
+            android:padding="3dip"
+            android:layout_column="0" />
+
+        <Button android:layout_height="fill_parent"
             android:text="@string/btnRecepten"
-            android:gravity="right"
-            android:padding="3dip" />
+            android:padding="3dip"
+            android:layout_column="1" />
+
     </TableRow>
 
-    <TableRow>
-        <Button
+    <TableRow android:layout_weight="1">
+
+        <Button android:layout_height="fill_parent"
             android:text="@string/btnWorkshops"
-            android:padding="3dip" />
-        <Button
+            android:padding="3dip"
+            android:layout_column="0" />
+
+        <Button android:layout_height="fill_parent"
             android:text="@string/btnPrestaties"
-            android:gravity="right"
-            android:padding="3dip" />
+            android:padding="3dip"
+            android:layout_column="1" />
+
     </TableRow>
 </TableLayout>
