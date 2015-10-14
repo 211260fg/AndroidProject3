@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">AndroidProject3</string>
-
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Test</string>
     <string name="action_settings">Settings</string>
 </resources>
