@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1">
+    <TableRow>
+        <Button
+            android:text="@string/btnChallenges"
+            android:padding="3dip" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:text="@string/btnRestaurants"
+            android:padding="3dip" />
+        <Button
+            android:text="@string/btnRecepten"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:text="@string/btnWorkshops"
+            android:padding="3dip" />
+        <Button
+            android:text="@string/btnPrestaties"
+            android:gravity="right"
+            android:padding="3dip" />
+    </TableRow>
+</TableLayout>
