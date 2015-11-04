@@ -1,10 +1,14 @@
-package com.example.floriangoeteyn.androidproject3;
+package com.example.floriangoeteyn.androidproject3.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.example.floriangoeteyn.androidproject3.R;
 
 public class MainActivity extends Activity {
 
@@ -34,5 +38,9 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showRecipes(View view) {
+        startActivity(new Intent(this, RecipeActivity.class));
     }
 }

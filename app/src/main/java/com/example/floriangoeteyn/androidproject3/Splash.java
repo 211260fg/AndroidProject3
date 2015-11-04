@@ -3,7 +3,8 @@ package com.example.floriangoeteyn.androidproject3;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
+
+import com.example.floriangoeteyn.androidproject3.activities.MainActivity;
 
 /**
  * Created by Robin on 16/10/2015.
