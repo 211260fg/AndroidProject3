@@ -13,8 +13,14 @@ import android.widget.TextView;
 import com.example.floriangoeteyn.androidproject3.R;
 import com.example.floriangoeteyn.androidproject3.models.Recipe;
 import com.example.floriangoeteyn.androidproject3.models.RecipeRepository;
+import com.example.floriangoeteyn.androidproject3.rest.RestClient;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -28,12 +34,35 @@ public class RecipeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         resultView = (TextView) findViewById(R.id.resultView);
 
-        final ProgressDialog dialog = ProgressDialog.show(this, "", "loading...");
-        List<Recipe> recipes = recipeRepository.getRecipesFromServer();
-        dialog.dismiss();
-        if(recipes!=null&&recipes.size()!=0) {
-            resultView.setText(recipes.toString());
-        }else{
+        //final ProgressDialog dialog = ProgressDialog.show(this, "", "loading...");
+        //List<Recipe> recipes = recipeRepository.getRecipesFromServer();
+
+        RestClient.RecipeApiInterface service= RestClient.getClient();
+        Call<List<Recipe>> call=service.getRecipes();
+        call.enqueue(new Callback<List<Recipe>>() {
+            @Override
+            public void onResponse(Response<List<Recipe>> response) {
+                List<Recipe> result = response.body();
+                if (response.isSuccess()) {
+                    resultView.setText(result.toString());
+                } else {
+                    resultView.setText("geen geldige response");
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                resultView.setText("geen connectie");
+
+            }
+        });
+
+
+        //dialog.dismiss();
+        //if(recipes!=null&&recipes.size()!=0) {
+        //resultView.setText(recipes.toString());
+        /*}else{
+            resultView.setText("Verbind met het internet om de recepten op te halen");
             new AlertDialog.Builder(this)
                     .setTitle("Connectie probleem")
                     .setMessage("Verbind met het internet om de recepten op te halen")
@@ -42,10 +71,7 @@ public class RecipeActivity extends AppCompatActivity {
                         }})
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
-            if(resultView!=null) {
-                resultView.setText("Verbind met het internet om de recepten op te halen");
-            }
-        }
+        }*/
     }
 
     @Override
