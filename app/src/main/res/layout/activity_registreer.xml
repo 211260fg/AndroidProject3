@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="@color/hoofd_donkergroen"
+            android:layout_marginBottom="5sp"
             android:text="@string/registreer_titel"/>
 
         <android.support.design.widget.TextInputLayout android:layout_width="match_parent"

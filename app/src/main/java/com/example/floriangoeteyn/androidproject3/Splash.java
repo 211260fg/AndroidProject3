@@ -24,7 +24,7 @@ public class Splash extends Activity {
                     e.printStackTrace();
                 }
                 finally {
-                    Intent intent = new Intent(Splash.this, MainActivity.class);
+                    Intent intent = new Intent(Splash.this, LoginActivity.class);
                     startActivity(intent);
                 }
             }

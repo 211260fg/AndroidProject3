@@ -6,4 +6,29 @@
     <string name="btnRecepten">Recepten</string>
     <string name="btnWorkshops">Workshops</string>
     <string name="btnPrestaties">Prestaties</string>
+
+    <string name="facebook_app_id">749232265202528</string>
+
+    <!-- LOGIN ACTIVITY -->
+    <string name="title_activity_login">Aanmelden</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_wachtwoord">Wachtwoord</string>
+    <string name="login">Aanmelden</string>
+    <string name="error_invalid_email">Deze email is ongeldig</string>
+    <string name="error_invalid_password">Dit wachtwoord is te kort</string>
+    <string name="error_incorrect_password">Dit wachtwoord is ongeldig</string>
+    <string name="error_field_required">Dit veld is verplicht</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."</string>
+    <string name="login_facebook">"Inloggen met Facebook"</string>
+    <string name="login_registreer"><u>Nog geen account? Registreer nu!</u></string>
+    <string name="title_activity_registreer">Registreer</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="login_error">Sorry, er liep iets fout! Probeer later nog eens.</string>
+
+    <!-- REGISTREER ACTIVITY -->
+    <string name="registreer_titel">Creatie nieuwe account</string>
+    <string name="prompt_wachtwoord_opnieuw">Wachtwoord opnieuw invoeren</string>
+    <string name="registreer">Mijn account aanmaken</string>
+
 </resources>
