@@ -9,13 +9,13 @@
     android:orientation="vertical"
     android:stretchColumns="*"
     android:shrinkColumns="*"
-    android:padding="20dp"
 
     >
     <TableRow android:layout_weight="1">
 
         <ImageButton android:layout_height="fill_parent"
             android:layout_width="0dp"
+            android:layout_margin="5dp"
             android:text="@string/btnChallenges"
             android:layout_column="0"
             android:layout_span="2"
@@ -26,12 +26,14 @@
 
         <ImageButton android:layout_height="fill_parent"
             android:layout_width="0dp"
+            android:layout_margin="5dp"
             android:text="@string/btnRestaurants"
             android:layout_column="0"
             android:background="@mipmap/restaurant"/>
 
         <ImageButton android:layout_height="fill_parent"
             android:layout_width="0dp"
+            android:layout_margin="5dp"
             android:text="@string/btnRecepten"
             android:layout_column="1"
             android:background="@mipmap/recepten"/>
@@ -42,12 +44,14 @@
 
         <ImageButton android:layout_height="fill_parent"
             android:layout_width="0dp"
+            android:layout_margin="5dp"
             android:text="@string/btnWorkshops"
             android:layout_column="0"
             android:background="@mipmap/workshops"/>
 
         <ImageButton android:layout_height="fill_parent"
             android:layout_width="0dp"
+            android:layout_margin="5dp"
             android:text="@string/btnPrestaties"
             android:layout_column="1"
             android:background="@mipmap/test"/>

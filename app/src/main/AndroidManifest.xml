@@ -52,6 +52,15 @@
             android:name=".RegistreerActivity"
             android:label="@string/title_activity_registreer" >
         </activity>
+        <activity
+            android:name=".GebruikersInfoActivity"
+            android:label="@string/title_activity_gebruikers_info"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.floriangoeteyn.androidproject3.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

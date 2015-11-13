@@ -14,16 +14,16 @@ import com.facebook.HttpMethod;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.io.Serializable;
 
 import java.util.List;
 
 /**
  * Created by Jeroen on 4/11/2015.
  */
-public class FacebookGraphAPI {
+public class FacebookGraphAPI implements Serializable {
 
     private static JSONObject info;
-    private GraphResponse why;
 
     public FacebookGraphAPI() {
 

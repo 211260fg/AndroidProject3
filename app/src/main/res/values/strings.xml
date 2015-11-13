@@ -31,4 +31,32 @@
     <string name="prompt_wachtwoord_opnieuw">Wachtwoord opnieuw invoeren</string>
     <string name="registreer">Mijn account aanmaken</string>
 
+    <!-- GEBRUIKERSINFO ACTIVITY -->
+    <string name="title_activity_gebruikers_info">Persoonlijke informatie</string>
+    <string name="opslaan">Sla op</string>
+    <string name="info_titel_normaal">Bekijk of bevestig je persoonlijke informatie.</string>
+    <string name="info_titel_eerste_keer">Welkom en bedankt om de Eva Challenge aan te gaan!<br></br>
+        Om je uitdagingen beter aan je leefsituatie aan te kunnen passen hadden we graag nog wat extra informatie gehad.</string>
+    <string name="voornaam">Voornaam</string>
+    <string name="geboortedatum">Geboortedatum</string>
+    <string name="geslacht">Geslacht</string>
+        <string name="geslacht_man">Man</string>
+        <string name="geslacht_vrouw">Vrouw</string>
+    <string name="leefsituatie">Leefsituatie</string>
+        <string-array name="leefsituaties">
+            <item>Samenwonend</item>
+            <item>Alleenstaand</item>
+            <item>Kotstudent</item>
+        </string-array>
+    <string name="gezinsleden">Aantal gezinsleden (inclusief jezelf)</string>
+    <string name="ervaring">Ervaring met vegetarisch koken</string>
+        <string-array name="ervaringen">
+            <item>Starter</item>
+            <item>Enthousiast</item>
+            <item>Keukenprins(es)</item>
+        </string-array>
+        <string-array name="gezinsleden">
+            <item>1</item> <item>2</item> <item>3</item> <item>4</item>
+            <item>5</item> <item>6</item> <item>7</item> <item>8</item>
+        </string-array>
 </resources>

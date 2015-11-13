@@ -1,6 +1,7 @@
 package com.example.floriangoeteyn.androidproject3;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,15 +13,27 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
-import com.facebook.AccessToken;
+import com.example.floriangoeteyn.androidproject3.domein.DomeinController;
+import com.example.floriangoeteyn.androidproject3.persistentie.HerokuService;
+import com.example.floriangoeteyn.androidproject3.persistentie.RetrofitHelper;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.squareup.okhttp.RequestBody;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.email) AutoCompleteTextView emailView;
     @Bind(R.id.wachtwoord) EditText wachtwoordView;
     @Bind(R.id.btnFacebookLogin) LoginButton btnFacebookLogin;
+
+    private DomeinController dc;
 
     CallbackManager callbackManager;
 
@@ -42,9 +57,11 @@ public class LoginActivity extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
 
-        if (AccessToken.getCurrentAccessToken() == null) {
+        /* if (AccessToken.getCurrentAccessToken() == null) {
             goToMain();
-        }
+        } */
+
+        dc = DomeinController.getInstance();
 
         List<String> permissions = Arrays.asList("email", "public_profile");
         btnFacebookLogin.setReadPermissions(permissions);
@@ -82,10 +99,46 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnLogin)
     public void login(View view) {
-        //TODO: LOGIN
+        String email = emailView.getText().toString();
+        String wachtwoord = wachtwoordView.getText().toString();
 
-        //success
-        goToMain();
+        try {
+            Call<JSONObject> call = dc.login(email, wachtwoord);
+
+            call.enqueue(new Callback<JSONObject>() {
+                @Override
+                public void onResponse(Response<JSONObject> response, Retrofit retrofit) {
+                    if (response.isSuccess()) {
+                        //TODO: "token" opslaan, kan dit response.rawResponse.handshake.ciphersuite zijn??
+                        goToMain();
+                    } else {
+                        switch (response.code()) {
+                            case 400: Toast.makeText(getApplicationContext(),
+                                    "Niet alle velden zijn ingevuld!",
+                                    Toast.LENGTH_LONG).show();
+                            case 401: Toast.makeText(getApplicationContext(),
+                                    "Deze email-wachtwoord combinatie bestaat niet!",
+                                    Toast.LENGTH_LONG).show();
+                            default: Toast.makeText(getApplicationContext(),
+                                    "Oeps, er ging iets fout, sorry hiervoor! Probeer later nog eens.",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    Toast.makeText(getApplicationContext(),
+                            "Oeps, er ging iets fout, sorry hiervoor! Probeer later nog eens.",
+                            Toast.LENGTH_LONG).show();
+                    Log.d("LoginActivity", t.getMessage());
+                }
+            });
+        } catch (IOException ex) {
+            Toast.makeText(getApplicationContext(),
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     @OnClick(R.id.login_registreer)
@@ -103,9 +156,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if (AccessToken.getCurrentAccessToken() == null) {
+        /* if (AccessToken.getCurrentAccessToken() == null) {
             goToMain();
-        }
+        } */
     }
 
 }
