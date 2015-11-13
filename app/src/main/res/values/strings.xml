@@ -6,7 +6,6 @@
     <string name="btnRecepten">Recepten</string>
     <string name="btnWorkshops">Workshops</string>
     <string name="btnPrestaties">Prestaties</string>
-    <string name="title_activity_recipe">RecipeActivity</string>
+    <string name="title_activity_recipe">Recepten</string>
 
-    <string name="hello_world">Hello world!</string>
 </resources>

@@ -43,7 +43,8 @@
             android:text="@string/btnRecepten"
             android:layout_column="1"
             android:background="@mipmap/recepten"
-            android:onClick="showRecipes"/>
+            android:onClick="showRecipes"
+            />
 
     </TableRow>
 
