@@ -4,6 +4,8 @@ package com.example.floriangoeteyn.androidproject3.persistentie;
  * Created by daan on 14/10/2015.
  */
 
+import com.example.floriangoeteyn.androidproject3.domein.Gebruiker;
+
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -32,20 +34,20 @@ public class PersistentieController implements Serializable {
         return facebookGraphAPI.getInfo(req);
     }
 
-    public Call<JSONObject> login(String email, String wachtwoord) throws IOException {
+    public Call<RetrofitHelper> login(String email, String wachtwoord) throws IOException {
         RetrofitHelper helper = new RetrofitHelper(email, wachtwoord);
 
-        Call<JSONObject> call = service.login(helper);
+        Call<RetrofitHelper> call = service.login(helper);
 
         return call;
     }
 
-    public Call<JSONObject> registreer(String email, String wachtwoord) throws IOException {
+    public Call<RetrofitHelper> registreer(String email, String wachtwoord) throws IOException {
         RetrofitHelper helper = new RetrofitHelper(email, wachtwoord);
 
-        Call<JSONObject> plswork = service.registreer(helper);
+        Call<RetrofitHelper> call = service.registreer(helper);
 
-        return plswork;
+        return call;
     }
 
 }

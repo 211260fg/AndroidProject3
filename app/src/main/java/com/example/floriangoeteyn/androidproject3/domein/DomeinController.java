@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.example.floriangoeteyn.androidproject3.persistentie.PersistentieController;
+import com.example.floriangoeteyn.androidproject3.persistentie.RetrofitHelper;
 
 import org.json.JSONObject;
 
@@ -19,6 +20,7 @@ public class DomeinController {
 
     private Gebruiker gebruiker;
     private PersistentieController pc;
+    private String token;
 
     private static DomeinController dc;
 
@@ -37,11 +39,11 @@ public class DomeinController {
         return pc.getFacebookInfo(req);
     }
 
-    public Call<JSONObject> login(String email, String wachtwoord) throws IOException {
+    public Call<RetrofitHelper> login(String email, String wachtwoord) throws IOException {
         return pc.login(email, wachtwoord);
     }
 
-    public Call<JSONObject> registreer(String email, String wachtwoord) throws IOException {
+    public Call<RetrofitHelper> registreer(String email, String wachtwoord) throws IOException {
         return pc.registreer(email, wachtwoord);
     }
 
@@ -60,4 +62,8 @@ public class DomeinController {
     public void setPc(PersistentieController pc) {
         this.pc = pc;
     }
+
+    public String getToken() { return token; }
+
+    public void setToken(String token) { this.token = token; }
 }

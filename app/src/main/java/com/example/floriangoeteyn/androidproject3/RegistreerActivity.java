@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -22,6 +24,7 @@ import retrofit.Retrofit;
 
 import com.example.floriangoeteyn.androidproject3.domein.DomeinController;
 import com.example.floriangoeteyn.androidproject3.persistentie.DictionaryOpenHelper;
+import com.example.floriangoeteyn.androidproject3.persistentie.RetrofitHelper;
 import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
@@ -39,6 +42,8 @@ public class RegistreerActivity extends AppCompatActivity {
     @Bind(R.id.email) AutoCompleteTextView emailView;
     @Bind(R.id.wachtwoord) EditText wachtwoordView;
     @Bind(R.id.wachtwoord_opnieuw) EditText wachtwoordOpnieuwView;
+    @Bind(R.id.registreerError) TextView registreerError;
+    @Bind(R.id.btnRegistreer) Button btnRegistreer;
 
     private DomeinController dc;
 
@@ -68,52 +73,36 @@ public class RegistreerActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.btnLogin)
+    @OnClick(R.id.btnRegistreer)
     public void onClick(View view) {
+        btnLoginNotClickable();
         String wachtwoord = wachtwoordView.getText().toString();
         if (wachtwoord.equals(wachtwoordOpnieuwView.getText().toString())) {
 
             String email = emailView.getText().toString();
 
             try {
-                Call<JSONObject> call = dc.registreer(email, wachtwoord);
+                Call<RetrofitHelper> call = dc.registreer(email, wachtwoord);
 
-                call.enqueue(new Callback<JSONObject>() {
+                call.enqueue(new Callback<RetrofitHelper>() {
                     @Override
-                    public void onResponse(Response<JSONObject> response, Retrofit retrofit) {
+                    public void onResponse(Response<RetrofitHelper> response, Retrofit retrofit) {
                         if (response.isSuccess()) {
-                            //TODO: "token" opslaan, kan dit response.rawResponse.handshake.ciphersuite zijn??
 
                             //eerst nog opvragen van informatie!
                             Intent intent = new Intent(RegistreerActivity.this, GebruikersInfoActivity.class);
                             startActivity(intent);
 
                         } else {
-                            switch (response.code()) {
-                                case 400:
-                                    Toast.makeText(getApplicationContext(),
-                                            "Niet alle velden zijn ingevuld!",
-                                            Toast.LENGTH_LONG).show();
-                                case 500:
-                                    Toast.makeText(getApplicationContext(),
-                                            "Deze email is reeds ingenomen :(",
-                                            Toast.LENGTH_LONG).show();
-                                default: {
-                                    Toast.makeText(getApplicationContext(),
-                                            "Oeps, er ging iets fout, sorry hiervoor! Probeer later nog eens.",
-                                            Toast.LENGTH_LONG).show();
-                                    Log.e("responseError", "" + response.code());
-                                }
-                            }
+                            registreerError.setText(bepaalErrorBoodschap(response.code()));
                         }
+                        btnRegistreerClickable();
                     }
 
                     @Override
                     public void onFailure(Throwable t) {
-                        Toast.makeText(getApplicationContext(),
-                                "Oeps, er ging iets fout, sorry hiervoor! Probeer later nog eens.",
-                                Toast.LENGTH_LONG).show();
-                        Log.d("LoginActivity", t.getMessage());
+                        registreerError.setText(getString(R.string.registreer_error_default));
+                        btnRegistreerClickable();
                     }
                 });
 
@@ -165,11 +154,29 @@ public class RegistreerActivity extends AppCompatActivity {
             //endregion
 
         } else {
-            Toast.makeText(getApplicationContext(),
-                    "de wachtwoorden komen niet overeen",
-                    Toast.LENGTH_LONG).show();
+            registreerError.setText(getString(R.string.registreer_error_wachtwoorden));
+            btnRegistreerClickable();
         }
     }
+
+    private String bepaalErrorBoodschap(int code) {
+        switch (code) {
+            case 400: return getString(R.string.registreer_error_400);
+            case 500: return getString(R.string.registreer_error_500);
+            default: return getString(R.string.registreer_error_default);
+        }
+    }
+
+    private void btnRegistreerClickable() {
+        btnRegistreer.setClickable(true);
+        btnRegistreer.setBackgroundResource(R.drawable.button_sign_in);
+    }
+
+    private void btnLoginNotClickable() {
+        btnRegistreer.setClickable(false);
+        btnRegistreer.setBackgroundResource(R.drawable.button_sign_in_disabled);
+    }
+
 
 }
 

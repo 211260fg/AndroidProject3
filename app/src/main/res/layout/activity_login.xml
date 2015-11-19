@@ -39,6 +39,11 @@
                 android:maxLines="1" android:singleLine="true"/>
         </android.support.design.widget.TextInputLayout>
 
+        <TextView android:id="@+id/loginError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/hoofd_rood"/>
+
         <Button android:id="@+id/btnLogin" style="?android:textAppearanceSmall"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginTop="16dp" android:text="@string/login"

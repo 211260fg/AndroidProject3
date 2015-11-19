@@ -10,15 +10,17 @@ public class RetrofitHelper {
     // Deze velden moeten steeds gelijk zijn aan de velden van het model in de backend!
     // (zie daar auth.js en Users.js)
     // Voorlopig is dit username & password, moet zo snel mogelijk veranderen naar email & password
-    private String username;
+    private String email;
     private String password;
+    private String token;
+    private String username = "empty";
 
     public RetrofitHelper() {
 
     }
 
-    public RetrofitHelper(String username, String password) {
-        this.username = username;
+    public RetrofitHelper(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
@@ -30,11 +32,19 @@ public class RetrofitHelper {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

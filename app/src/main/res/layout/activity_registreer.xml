@@ -56,7 +56,12 @@
                 android:maxLines="1" android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
 
-        <Button android:id="@+id/btnLogin" style="?android:textAppearanceSmall"
+        <TextView android:id="@+id/registreerError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/hoofd_rood"/>
+
+        <Button android:id="@+id/btnRegistreer" style="?android:textAppearanceSmall"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginTop="16dp" android:text="@string/registreer"
             android:textStyle="bold" android:textColor="#FFF" android:background="@drawable/button_sign_in"/>

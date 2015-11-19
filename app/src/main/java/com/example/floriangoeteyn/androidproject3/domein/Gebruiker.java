@@ -18,9 +18,18 @@ public class Gebruiker {
     private String email;
     private Date dagGestart;
     private String facebookId;
+    private String token;
 
     public Gebruiker() {
 
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Date getGeboorteDatum() {

@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -20,6 +22,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 import com.example.floriangoeteyn.androidproject3.domein.DomeinController;
+import com.example.floriangoeteyn.androidproject3.domein.Gebruiker;
 import com.example.floriangoeteyn.androidproject3.persistentie.HerokuService;
 import com.example.floriangoeteyn.androidproject3.persistentie.RetrofitHelper;
 import com.facebook.CallbackManager;
@@ -43,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.email) AutoCompleteTextView emailView;
     @Bind(R.id.wachtwoord) EditText wachtwoordView;
     @Bind(R.id.btnFacebookLogin) LoginButton btnFacebookLogin;
+    @Bind(R.id.btnLogin) Button btnLogin;
+    @Bind(R.id.loginError) TextView loginError;
 
     private DomeinController dc;
 
@@ -83,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onError(FacebookException exception)
             {
                 Log.v("LoginActivity", exception.getCause().toString());
-                Toast.makeText(getApplicationContext(), R.string.login_error, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.login_error_default, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -99,39 +104,33 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnLogin)
     public void login(View view) {
+        btnLoginNotClickable();
         String email = emailView.getText().toString();
         String wachtwoord = wachtwoordView.getText().toString();
 
         try {
-            Call<JSONObject> call = dc.login(email, wachtwoord);
+            Call<RetrofitHelper> call = dc.login(email, wachtwoord);
 
-            call.enqueue(new Callback<JSONObject>() {
+            call.enqueue(new Callback<RetrofitHelper>() {
                 @Override
-                public void onResponse(Response<JSONObject> response, Retrofit retrofit) {
+                public void onResponse(Response<RetrofitHelper> response, Retrofit retrofit) {
                     if (response.isSuccess()) {
-                        //TODO: "token" opslaan, kan dit response.rawResponse.handshake.ciphersuite zijn??
+                        dc.setToken(response.body().getToken());
+
+                        loginError.setText("");
                         goToMain();
                     } else {
-                        switch (response.code()) {
-                            case 400: Toast.makeText(getApplicationContext(),
-                                    "Niet alle velden zijn ingevuld!",
-                                    Toast.LENGTH_LONG).show();
-                            case 401: Toast.makeText(getApplicationContext(),
-                                    "Deze email-wachtwoord combinatie bestaat niet!",
-                                    Toast.LENGTH_LONG).show();
-                            default: Toast.makeText(getApplicationContext(),
-                                    "Oeps, er ging iets fout, sorry hiervoor! Probeer later nog eens.",
-                                    Toast.LENGTH_LONG).show();
-                        }
+                        loginError.setText(bepaalErrorBoodschap(response.code()));
+
                     }
+
+                    btnLoginClickable();
                 }
 
                 @Override
                 public void onFailure(Throwable t) {
-                    Toast.makeText(getApplicationContext(),
-                            "Oeps, er ging iets fout, sorry hiervoor! Probeer later nog eens.",
-                            Toast.LENGTH_LONG).show();
-                    Log.d("LoginActivity", t.getMessage());
+                    loginError.setText(getString(R.string.login_error_default));
+                    btnLoginClickable();
                 }
             });
         } catch (IOException ex) {
@@ -159,6 +158,24 @@ public class LoginActivity extends AppCompatActivity {
         /* if (AccessToken.getCurrentAccessToken() == null) {
             goToMain();
         } */
+    }
+
+    private String bepaalErrorBoodschap(int code) {
+        switch (code) {
+            case 400: return getString(R.string.login_error_400);
+            case 401: return getString(R.string.login_error_401);
+            default: return getString(R.string.login_error_default);
+        }
+    }
+
+    private void btnLoginClickable() {
+        btnLogin.setClickable(true);
+        btnLogin.setBackgroundResource(R.drawable.button_sign_in);
+    }
+
+    private void btnLoginNotClickable() {
+        btnLogin.setClickable(false);
+        btnLogin.setBackgroundResource(R.drawable.button_sign_in_disabled);
     }
 
 }
