@@ -1,6 +1,7 @@
 package com.example.floriangoeteyn.androidproject3.rest;
 
 import com.example.floriangoeteyn.androidproject3.models.Recipe;
+import com.example.floriangoeteyn.androidproject3.models.Restaurant;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Response;
@@ -18,10 +19,11 @@ import retrofit.http.GET;
  */
 public class RestClient {
 
-    private static RecipeApiInterface recipeApiInterface ;
-    private static String baseUrl = "https://eva-app-nodejs.herokuapp.com" ;
+    private static RecipeApiInterface recipeApiInterface;
+    private static RestaurantApiInterface restaurantApiInterface;
+    private static String baseUrl = "https://eva-app-nodejs.herokuapp.com";
 
-    public static RecipeApiInterface getClient() {
+    public static RecipeApiInterface getRecipeClient() {
         if (recipeApiInterface == null) {
 
             OkHttpClient okClient = new OkHttpClient();
@@ -41,15 +43,49 @@ public class RestClient {
                     .build();
             recipeApiInterface = client.create(RecipeApiInterface.class);
         }
-        return recipeApiInterface ;
+        return recipeApiInterface;
     }
 
-public interface RecipeApiInterface {
+
+    public static RestaurantApiInterface getRestaurantClient() {
+        if (restaurantApiInterface == null) {
+
+            OkHttpClient okClient = new OkHttpClient();
+            okClient.interceptors().add(new Interceptor() {
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+                    Response response = chain.proceed(chain.request());
+                    return response;
+                }
+            });
+
+            Retrofit client = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverter(String.class, new ToStringConverter())
+                    .client(okClient)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            restaurantApiInterface = client.create(RestaurantApiInterface.class);
+        }
+        return restaurantApiInterface;
+    }
 
 
-    @GET("/recipes")
-    Call<List<Recipe>> getRecipes();
+    public interface RecipeApiInterface {
 
 
-}
+        @GET("/recipes")
+        Call<List<Recipe>> getRecipes();
+
+
+    }
+
+    public interface RestaurantApiInterface {
+
+        @GET("/restaurants")
+        Call<List<Restaurant>> getRestaurants();
+
+
+    }
+
 }

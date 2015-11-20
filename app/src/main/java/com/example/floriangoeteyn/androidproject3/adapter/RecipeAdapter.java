@@ -35,7 +35,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public void onBindViewHolder(RecipeViewHolder recipeViewHolder, int i) {
         recipeViewHolder.recipeTitle.setText(recipes.get(i).getTitle());
         //recipeViewHolder.recipeImage.setImageResource(recipes.get(i).getImages().get(0).getUrl()));
-        recipeViewHolder.recipeImage.setImageResource(R.mipmap.recepten);
         if(recipes.get(i).getImages()!=null&&recipes.get(i).getImages().size()!=0) {
             Picasso.with(context).load(recipes.get(i).getImages().get(0).getUrl()).into(recipeViewHolder.recipeImage);
         }

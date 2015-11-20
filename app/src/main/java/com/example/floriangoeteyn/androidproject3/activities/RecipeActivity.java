@@ -2,44 +2,21 @@ package com.example.floriangoeteyn.androidproject3.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import com.example.floriangoeteyn.androidproject3.R;
 import com.example.floriangoeteyn.androidproject3.adapter.RecipeAdapter;
 import com.example.floriangoeteyn.androidproject3.models.Recipe;
-import com.example.floriangoeteyn.androidproject3.models.RecipeRepository;
+import com.example.floriangoeteyn.androidproject3.repository.RecipeRepository;
 import com.example.floriangoeteyn.androidproject3.rest.RestClient;
-import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Call;
@@ -49,8 +26,8 @@ import retrofit.Response;
 public class RecipeActivity extends AppCompatActivity implements Callback<List<Recipe>> {
 
     private RecipeRepository recipeRepository;
-    List<Recipe> recipes;
-    ProgressDialog dialog;
+    private List<Recipe> recipes;
+    private ProgressDialog dialog;
 
 
     @Override
@@ -61,7 +38,7 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
 
         dialog = ProgressDialog.show(this, "", "loading...");
 
-        RestClient.RecipeApiInterface service= RestClient.getClient();
+        RestClient.RecipeApiInterface service= RestClient.getRecipeClient();
         Call<List<Recipe>> call=service.getRecipes();
         call.enqueue(this);
     }

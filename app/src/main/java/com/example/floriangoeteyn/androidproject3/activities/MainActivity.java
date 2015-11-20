@@ -43,4 +43,8 @@ public class MainActivity extends Activity {
     public void showRecipes(View view) {
         startActivity(new Intent(this, RecipeActivity.class));
     }
+
+    public void showRestaurants(View view) {
+        startActivity(new Intent(this, RestaurantActivity.class));
+    }
 }

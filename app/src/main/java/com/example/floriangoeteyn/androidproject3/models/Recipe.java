@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by daan on 3/11/2015.
  */
-public class Recipe {
+public class Recipe implements Challenge{
     private String title;
     private String tagline;
     private String quote;

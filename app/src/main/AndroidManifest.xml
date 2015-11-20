@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.floriangoeteyn.androidproject3" >
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icoon_zonder_achtergrond"
@@ -24,6 +26,10 @@
         <activity
             android:name=".activities.RecipeActivity"
             android:label="@string/title_activity_recipe" >
+        </activity>
+        <activity
+            android:name=".activities.RestaurantActivity"
+            android:label="@string/title_activity_restaurant" >
         </activity>
     </application>
 
