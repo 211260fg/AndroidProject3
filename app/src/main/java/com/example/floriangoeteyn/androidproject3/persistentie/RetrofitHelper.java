@@ -9,7 +9,6 @@ public class RetrofitHelper {
 
     // Deze velden moeten steeds gelijk zijn aan de velden van het model in de backend!
     // (zie daar auth.js en Users.js)
-    // Voorlopig is dit username & password, moet zo snel mogelijk veranderen naar email & password
     private String email;
     private String password;
     private String token;

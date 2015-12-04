@@ -1,7 +1,7 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:fb="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
@@ -12,9 +12,9 @@
     tools:context="com.example.floriangoeteyn.androidproject3.LoginActivity">
 
     <LinearLayout
-        android:id="@+id/email_login_form" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:orientation="vertical"
-        android:layout_weight="0.7">
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -27,11 +27,57 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="12sp"
             android:textColor="@color/hoofd_donkergroen"
             android:layout_marginBottom="5sp"
-            android:text="@string/registreer_titel"/>
+            android:text="@string/info_titel_eerste_keer"/>
 
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TableRow
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:text="@string/prompt_email"
+                    android:layout_weight="1"
+                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+                <EditText android:id="@+id/email"
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1" android:singleLine="true"
+                    android:layout_weight="1"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:text="@string/prompt_wachtwoord"
+                    android:layout_weight="1"
+                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+                <EditText android:id="@+id/wachtwoord"
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:maxLines="1" android:singleLine="true"
+                    android:layout_weight="1"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:text="@string/prompt_wachtwoord_opnieuw"
+                    android:layout_weight="1"
+                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+                <EditText android:id="@+id/wachtwoord_opnieuw"
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:maxLines="1" android:singleLine="true"
+                    android:layout_weight="1"/>
+            </TableRow>
+        </TableLayout>
+
+        <!--
         <android.support.design.widget.TextInputLayout android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <AutoCompleteTextView android:id="@+id/email" android:layout_width="match_parent"
@@ -55,17 +101,24 @@
                 android:inputType="textPassword"
                 android:maxLines="1" android:singleLine="true" />
         </android.support.design.widget.TextInputLayout>
+        -->
+
+        <fragment android:name="com.example.floriangoeteyn.androidproject3.Fragments.GebruikersInfoFragment"
+            android:id="@+id/infoFragment"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
 
         <TextView android:id="@+id/registreerError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/hoofd_rood"/>
 
-        <Button android:id="@+id/btnRegistreer" style="?android:textAppearanceSmall"
+        <Button android:id="@+id/btnRegistreer" style="android:textAppearanceSmall"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginTop="16dp" android:text="@string/registreer"
             android:textStyle="bold" android:textColor="#FFF" android:background="@drawable/button_sign_in"/>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

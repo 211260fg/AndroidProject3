@@ -29,23 +29,26 @@ public class PersistentieController implements Serializable {
         service = retrofit.create(HerokuService.class);
     }
 
+    public Call<JSONObject> test(String token) {
+        Call<JSONObject> call = service.test("Bearer " + token);
+
+        return call;
+    }
+
     public String getFacebookInfo(String req) {
         facebookGraphAPI.accessGraph();
         return facebookGraphAPI.getInfo(req);
     }
 
-    public Call<RetrofitHelper> login(String email, String wachtwoord) throws IOException {
-        RetrofitHelper helper = new RetrofitHelper(email, wachtwoord);
+    public Call<Gebruiker> login(Gebruiker gebruiker) throws IOException {
 
-        Call<RetrofitHelper> call = service.login(helper);
+        Call<Gebruiker> call = service.login(gebruiker);
 
         return call;
     }
 
-    public Call<RetrofitHelper> registreer(String email, String wachtwoord) throws IOException {
-        RetrofitHelper helper = new RetrofitHelper(email, wachtwoord);
-
-        Call<RetrofitHelper> call = service.registreer(helper);
+    public Call<Gebruiker> registreer(Gebruiker gebruiker) throws IOException {
+        Call<Gebruiker> call = service.registreer(gebruiker);
 
         return call;
     }

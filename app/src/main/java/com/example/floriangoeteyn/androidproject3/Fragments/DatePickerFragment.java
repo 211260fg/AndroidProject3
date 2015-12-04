@@ -14,20 +14,30 @@ import java.util.Calendar;
 public class DatePickerFragment extends DialogFragment
                             implements DatePickerDialog.OnDateSetListener {
 
+    private EditText geboortedatum;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
 
-        // Create a new instance of DatePickerDialog and return it
-        return new DatePickerDialog(getActivity(), this, year, month, day);
+        geboortedatum = (EditText) getActivity().findViewById(R.id.geboortedatum);
+
+        String[] datum = geboortedatum.getText().toString().split("/");
+        int day = Integer.parseInt(datum[0]);
+        int month = Integer.parseInt(datum[1])-1;
+        int year = Integer.parseInt(datum[2]);
+
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(), this, year, month, day);
+        DatePicker picker = dialog.getDatePicker();
+
+        final Calendar c = Calendar.getInstance();
+        picker.setMaxDate(c.getTimeInMillis());
+        c.add(Calendar.YEAR, -100);
+        picker.setMinDate(c.getTimeInMillis());
+
+        return dialog;
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        EditText geboortedatum = (EditText) getActivity().findViewById(R.id.geboortedatum);
         geboortedatum.setText(day + "/" + (month + 1) + "/" + year);
     }
 }

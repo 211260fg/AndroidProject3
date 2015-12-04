@@ -7,16 +7,16 @@ import java.sql.Date;
  */
 public class Gebruiker {
 
-    private String naam;
-    private Date geboorteDatum;
-    private String hash;
-    private String salt;
-    private String geslacht;
-    private String leefSituatie;
-    private int gezinsleden;
-    private int ervaring;
     private String email;
-    private Date dagGestart;
+    private String password;
+    private String username;
+    private String userlang;
+    private Date birthyear;
+    private String gender;
+    private int experience;
+    private String leefSituatie;
+    private int family;
+    private Date dayStarted;
     private String facebookId;
     private String token;
 
@@ -24,76 +24,9 @@ public class Gebruiker {
 
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public Date getGeboorteDatum() {
-        return geboorteDatum;
-    }
-
-    public void setGeboorteDatum(Date geboorteDatum) {
-        this.geboorteDatum = geboorteDatum;
-    }
-
-    public String getNaam() {
-        return naam;
-    }
-
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
-
-    public String getHash() {
-        return hash;
-    }
-
-    public void setHash(String hash) {
-        this.hash = hash;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    public String getGeslacht() {
-        return geslacht;
-    }
-
-    public void setGeslacht(String geslacht) {
-        this.geslacht = geslacht;
-    }
-
-    public String getLeefSituatie() {
-        return leefSituatie;
-    }
-
-    public void setLeefSituatie(String leefSituatie) {
-        this.leefSituatie = leefSituatie;
-    }
-
-    public int getGezinsleden() {
-        return gezinsleden;
-    }
-
-    public void setGezinsleden(int gezinsleden) {
-        this.gezinsleden = gezinsleden;
-    }
-
-    public int getErvaring() {
-        return ervaring;
-    }
-
-    public void setErvaring(int ervaring) {
-        this.ervaring = ervaring;
+    public Gebruiker(String email, String password) {
+        setEmail(email);
+        setPassword(password);
     }
 
     public String getEmail() {
@@ -104,12 +37,76 @@ public class Gebruiker {
         this.email = email;
     }
 
-    public Date getDagGestart() {
-        return dagGestart;
+    public String getPassword() {
+        return password;
     }
 
-    public void setDagGestart(Date dagGestart) {
-        this.dagGestart = dagGestart;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUserlang() {
+        return userlang;
+    }
+
+    public void setUserlang(String userlang) {
+        this.userlang = userlang;
+    }
+
+    public Date getBirthyear() {
+        return birthyear;
+    }
+
+    public void setBirthyear(Date birthyear) {
+        this.birthyear = birthyear;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public String getLeefSituatie() {
+        return leefSituatie;
+    }
+
+    public void setLeefSituatie(String leefSituatie) {
+        this.leefSituatie = leefSituatie;
+    }
+
+    public int getFamily() {
+        return family;
+    }
+
+    public void setFamily(int family) {
+        this.family = family;
+    }
+
+    public Date getDayStarted() {
+        return dayStarted;
+    }
+
+    public void setDayStarted(Date dayStarted) {
+        this.dayStarted = dayStarted;
     }
 
     public String getFacebookId() {
@@ -120,5 +117,11 @@ public class Gebruiker {
         this.facebookId = facebookId;
     }
 
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

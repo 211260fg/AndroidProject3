@@ -1,17 +1,93 @@
 package com.example.floriangoeteyn.androidproject3;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
-public class MainActivity extends Activity {
+import com.example.floriangoeteyn.androidproject3.domein.DomeinController;
+import com.example.floriangoeteyn.androidproject3.persistentie.RetrofitHelper;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Bind(R.id.test) ImageButton test;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+
+    private DomeinController dc;
+
+
+
+
+    @OnClick(R.id.test)
+    public void testje(View view) {
+        Log.d("Token:", dc.getToken());
+
+        try {
+            Call<JSONObject> call = dc.test();
+
+            call.enqueue(new Callback<JSONObject>() {
+                @Override
+                public void onResponse(Response<JSONObject> response, Retrofit retrofit) {
+                    if (response.isSuccess()) {
+                        Toast.makeText(getApplicationContext(),
+                                "yooooooooooooooo",
+                                Toast.LENGTH_LONG).show();
+                    } else {
+
+                        Toast.makeText(getApplicationContext(),
+                                "" + response.code(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    Toast.makeText(getApplicationContext(),
+                            "oeps",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(),
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hoofdmenu);
+
+        ButterKnife.bind(this);
+
+        dc = DomeinController.getInstance();
+
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("");
+
     }
 
     @Override
@@ -28,11 +104,20 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()) {
+            case(R.id.action_profiel):
+                return true;
+
+            case(R.id.action_logout):
+                dc.setGebruiker(null);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
-        return super.onOptionsItemSelected(item);
     }
 }

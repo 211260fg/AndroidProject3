@@ -1,33 +1,40 @@
-package com.example.floriangoeteyn.androidproject3;
+package com.example.floriangoeteyn.androidproject3.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.floriangoeteyn.androidproject3.Fragments.DatePickerFragment;
+import com.example.floriangoeteyn.androidproject3.R;
 import com.example.floriangoeteyn.androidproject3.domein.DomeinController;
+
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 
-public class GebruikersInfoActivity extends AppCompatActivity {
+public class GebruikersInfoFragment extends Fragment {
 
-    @Bind(R.id.titel) TextView titel;
     @Bind(R.id.voornaam) EditText voornaam;
     @Bind(R.id.geboortedatum) EditText geboortedatum;
     @Bind(R.id.leefsituatie) Spinner leefsituatie;
@@ -37,39 +44,51 @@ public class GebruikersInfoActivity extends AppCompatActivity {
     private DomeinController dc;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gebruikers_info);
-        ButterKnife.bind(this);
+    public View onCreateView(LayoutInflater inflater,
+                         ViewGroup container,
+                         Bundle savedInstanceState) {
 
-        Intent intent = getIntent();
+        View rootView = inflater.inflate(R.layout.activity_gebruikers_info,
+                container, false);
+        //setContentView(R.layout.activity_gebruikers_info);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
         dc = DomeinController.getInstance();
 
-        if(voornaam.getText().toString().isEmpty()) {
-            titel.setText(R.string.info_titel_eerste_keer);
-        }
 
         //geboortedatum dag van vandaag invullen
         geboortedatum.setText("1/1/2015");
 
         //leefsituatie default: getrouwd (?)
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.leefsituaties, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         leefsituatie.setAdapter(adapter);
 
         //range van gezinsleden: 1-8 (?)
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(),
                 R.array.gezinsleden, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gezinsleden.setAdapter(adapter2);
 
         //ervaring default: starter (?)
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(getActivity(),
                 R.array.ervaringen, android.R.layout.simple_spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ervaring.setAdapter(adapter3);
-
 
     }
 
@@ -78,20 +97,18 @@ public class GebruikersInfoActivity extends AppCompatActivity {
     @OnClick(R.id.geboortedatum)
     public void setGeboortedatum() {
         DialogFragment dialogFragment = new DatePickerFragment();
-        dialogFragment.show(getSupportFragmentManager(), "datePicker");
-
+        dialogFragment.setTargetFragment(this, 1);
+        dialogFragment.show(getFragmentManager(), "tag");
     }
 
-    @OnClick(R.id.btnSlaOp)
-    public void slaOp() {
-        Intent intent = new Intent(GebruikersInfoActivity.this, MainActivity.class);
-        startActivity(intent);
+    public EditText getGeboortedatumEditText() {
+        return geboortedatum;
     }
 
     /*
     @OnClick(R.id.leefsituatie)
     public void setLeefsituatie() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.leefsituatie)
                 .setItems(R.array.leefsituaties, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -110,7 +127,7 @@ public class GebruikersInfoActivity extends AppCompatActivity {
 
     @OnClick(R.id.ervaring)
     public void setErvaring() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.ervaring)
                 .setItems(R.array.ervaringen, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

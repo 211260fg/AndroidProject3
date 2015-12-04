@@ -12,7 +12,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/icoon_zonder_achtergrond"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            />
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
@@ -51,15 +51,6 @@
         <activity
             android:name=".RegistreerActivity"
             android:label="@string/title_activity_registreer" >
-        </activity>
-        <activity
-            android:name=".GebruikersInfoActivity"
-            android:label="@string/title_activity_gebruikers_info"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.floriangoeteyn.androidproject3.MainActivity" />
         </activity>
     </application>
 

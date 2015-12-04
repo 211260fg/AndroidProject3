@@ -91,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), R.string.login_error_default, Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
 
@@ -109,11 +108,11 @@ public class LoginActivity extends AppCompatActivity {
         String wachtwoord = wachtwoordView.getText().toString();
 
         try {
-            Call<RetrofitHelper> call = dc.login(email, wachtwoord);
+            Call<Gebruiker> call = dc.login(email, wachtwoord);
 
-            call.enqueue(new Callback<RetrofitHelper>() {
+            call.enqueue(new Callback<Gebruiker>() {
                 @Override
-                public void onResponse(Response<RetrofitHelper> response, Retrofit retrofit) {
+                public void onResponse(Response<Gebruiker> response, Retrofit retrofit) {
                     if (response.isSuccess()) {
                         dc.setToken(response.body().getToken());
 
@@ -149,6 +148,7 @@ public class LoginActivity extends AppCompatActivity {
     private void goToMain() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

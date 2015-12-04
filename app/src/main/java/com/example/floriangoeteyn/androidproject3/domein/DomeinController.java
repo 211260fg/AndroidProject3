@@ -20,7 +20,6 @@ public class DomeinController {
 
     private Gebruiker gebruiker;
     private PersistentieController pc;
-    private String token;
 
     private static DomeinController dc;
 
@@ -35,16 +34,20 @@ public class DomeinController {
         return dc;
     }
 
+    public Call<JSONObject> test() {return pc.test(gebruiker.getToken()); }
+
     public String getFacebookInfo(String req) {
         return pc.getFacebookInfo(req);
     }
 
-    public Call<RetrofitHelper> login(String email, String wachtwoord) throws IOException {
-        return pc.login(email, wachtwoord);
+    public Call<Gebruiker> login(String email, String password) throws IOException {
+        gebruiker = new Gebruiker(email, password);
+        return pc.login(gebruiker);
     }
 
-    public Call<RetrofitHelper> registreer(String email, String wachtwoord) throws IOException {
-        return pc.registreer(email, wachtwoord);
+    public Call<Gebruiker> registreer(String email, String password) throws IOException {
+        gebruiker = new Gebruiker(email, password);
+        return pc.registreer(gebruiker);
     }
 
     public Gebruiker getGebruiker() {
@@ -63,7 +66,7 @@ public class DomeinController {
         this.pc = pc;
     }
 
-    public String getToken() { return token; }
+    public String getToken() { return gebruiker.getToken(); }
 
-    public void setToken(String token) { this.token = token; }
+    public void setToken(String token) { gebruiker.setToken(token); }
 }

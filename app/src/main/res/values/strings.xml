@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">AndroidProject3</string>
-    <string name="action_settings">Settings</string>
     <string name="btnChallenges">Daag jezelf uit!</string>
     <string name="btnRestaurants">Restaurants</string>
     <string name="btnRecepten">Recepten</string>
@@ -8,6 +7,10 @@
     <string name="btnPrestaties">Prestaties</string>
 
     <string name="facebook_app_id">749232265202528</string>
+
+    <!-- ACTION BAR -->
+    <string name="action_profiel">Profiel</string>
+    <string name="action_logout">Log uit</string>
 
     <!-- LOGIN ACTIVITY -->
     <string name="title_activity_login">Aanmelden</string>
@@ -42,9 +45,10 @@
     <string name="title_activity_gebruikers_info">Persoonlijke informatie</string>
     <string name="opslaan">Sla op</string>
     <string name="info_titel_normaal">Bekijk of bevestig je persoonlijke informatie.</string>
-    <string name="info_titel_eerste_keer">Welkom en bedankt om de Eva Challenge aan te gaan!<br></br>
-        Om je uitdagingen beter aan je leefsituatie aan te kunnen passen hadden we graag nog wat extra informatie gehad.</string>
-    <string name="voornaam">Voornaam</string>
+    <string name="info_titel_eerste_keer">Welkom en bedankt om de Eva Challenge aan te gaan!\n
+        Om je uitdagingen beter aan je leefsituatie aan te kunnen passen hadden we graag nog wat extra informatie gehad.\n
+        Velden met een * zijn verplicht.</string>
+    <string name="username">Gebruikersnaam</string>
     <string name="geboortedatum">Geboortedatum</string>
     <string name="geslacht">Geslacht</string>
         <string name="geslacht_man">Man</string>

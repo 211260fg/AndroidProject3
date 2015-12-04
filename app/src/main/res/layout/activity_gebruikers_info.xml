@@ -1,41 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:layout_height="match_parent"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_gebruikers_info"
+    tools:context="com.example.floriangoeteyn.androidproject3.Fragments.GebruikersInfoFragment"
+    android:orientation="vertical"
+    android:stretchColumns="1">
+
+    <!--android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_gebruikers_info"
-    tools:context="com.example.floriangoeteyn.androidproject3.GebruikersInfoActivity">
-
-    <TableLayout android:id="@+id/email_login_form"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:orientation="vertical"
-        android:stretchColumns="1">
-
-        <ImageView android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_span="2"
-            android:id="@+id/imageView"
-            android:layout_gravity="center"
-            android:src="@mipmap/logo_sign_in" />
-
-        <TextView android:id="@+id/titel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_span="2"
-            android:textSize="15sp"
-            android:textColor="@color/hoofd_donkergroen"
-            android:layout_marginBottom="5sp"
-            android:text="@string/info_titel_normaal"/>
-
+    -->
 
         <TableRow
             android:layout_marginBottom="10dp">
             <TextView
-                android:text="@string/voornaam"
+                android:text="@string/username"
                 android:layout_weight="1"
                 android:layout_width="0dp" android:layout_height="wrap_content"/>
             <EditText android:id="@+id/voornaam"
@@ -151,11 +135,11 @@
                 android:layout_weight="1"/>
         </TableRow>
 
+        <!--
         <Button android:id="@+id/btnSlaOp" style="?android:textAppearanceSmall"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginTop="16dp" android:text="@string/opslaan"
             android:textStyle="bold" android:textColor="#FFF" android:background="@drawable/button_sign_in"/>
+        -->
 
-    </TableLayout>
-
-</ScrollView>
+</TableLayout>

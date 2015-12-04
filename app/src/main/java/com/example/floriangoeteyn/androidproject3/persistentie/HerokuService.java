@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.Header;
 import retrofit.http.POST;
 
 /**
@@ -14,11 +15,14 @@ import retrofit.http.POST;
  */
 public interface HerokuService {
     @POST("/login")
-    Call<RetrofitHelper> login(@Body RetrofitHelper helper);
+    Call<Gebruiker> login(@Body Gebruiker gebruiker);
 
     @POST("/register")
-    Call<RetrofitHelper> registreer(@Body RetrofitHelper helper);
+    Call<Gebruiker> registreer(@Body Gebruiker gebruiker);
 
     @GET("/user/:id")
     Call<Gebruiker> getGebruiker(@Body Gebruiker gebruiker);
+
+    @GET("/recipes/5645d9a78ed96915e17a39fe")
+    Call<JSONObject> test(@Header("Authorization") String auth);
 }
