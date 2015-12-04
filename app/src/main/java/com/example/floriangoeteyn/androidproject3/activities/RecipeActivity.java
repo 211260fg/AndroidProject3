@@ -10,13 +10,22 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.SearchView;
+import android.widget.Spinner;
 
 import com.example.floriangoeteyn.androidproject3.R;
 import com.example.floriangoeteyn.androidproject3.adapter.RecipeAdapter;
+import com.example.floriangoeteyn.androidproject3.models.Ingredient;
 import com.example.floriangoeteyn.androidproject3.models.Recipe;
 import com.example.floriangoeteyn.androidproject3.repository.RecipeRepository;
 import com.example.floriangoeteyn.androidproject3.rest.RestClient;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.TransformerUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import retrofit.Call;
@@ -34,6 +43,8 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
     protected void onCreate(Bundle savedInstanceState) {
         recipeRepository = new RecipeRepository();
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_recipe);
 
         dialog = ProgressDialog.show(this, "", "loading...");
@@ -71,15 +82,50 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
     public void onResponse(Response<List<Recipe>> response) {
         dialog.dismiss();
         recipes = response.body();
+        final List<Recipe> theRecipes = response.body();
 
-        RecyclerView rv = (RecyclerView)findViewById(R.id.recipeRecyclerView);
+        final RecyclerView rv = (RecyclerView)findViewById(R.id.recipeRecyclerView);
         GridLayoutManager glm = new GridLayoutManager(this, 2);
         rv.setLayoutManager(glm);
 
-        RecipeAdapter adapter = new RecipeAdapter(recipes, this);
+        final RecipeAdapter adapter = new RecipeAdapter(recipes, this);
         rv.setAdapter(adapter);
 
+
+        createDropdownLists();
+        SearchView sv = (SearchView)findViewById(R.id.searchingredient);
+
+
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String text) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String text) {
+                final List<Recipe> recipes_ = theRecipes;
+                //blkdfjqlkjqmd
+                final List<Recipe> filteredModelList = filter(recipes_, text);
+                adapter.animateTo(filteredModelList);
+                rv.scrollToPosition(0);
+                return true;
+            }
+
+            private List<Recipe> filter(List<Recipe> recipes, String query) {
+                query = query.toLowerCase();
+                final List<Recipe> filteredModelList = new ArrayList<>();
+                for (Recipe r : recipes) {
+                    if (r.getTitle().toLowerCase().contains(query)){
+                        filteredModelList.add(r);
+                    }
+                }
+                return filteredModelList;
+            }
+        });
     }
+
+
 
     @Override
     public void onFailure(Throwable t) {
@@ -93,5 +139,34 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
                     }})
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    public void createDropdownLists(){
+        Spinner type = (Spinner)findViewById(R.id.types);
+        Spinner kooktijd = (Spinner)findViewById(R.id.kooktijd);
+        Spinner moeilijkheid = (Spinner)findViewById(R.id.moeilijkheid);
+        Spinner allergie = (Spinner)findViewById(R.id.allergie);
+        Spinner regio = (Spinner)findViewById(R.id.regio);
+
+        String[] arraySpinner = new String[] {"Type", "Basisbereiding", "Bijgerecht", "Broodbeleg", "Drank", "Hapje", "Hoofdgerecht", "Nagerecht", "Saus", "Soep", "Voorgerecht"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, arraySpinner);
+        type.setAdapter(adapter);
+
+        arraySpinner = new String[] {"Kooktijd", "Lang", "Middel", "Snel"};
+        adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, arraySpinner);
+        kooktijd.setAdapter(adapter);
+
+        arraySpinner = new String[] {"Moeilijkheid", "Voor keukenPrinc(ess)en", "Voor starterse ", "Voor enthousiasten"};
+        adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, arraySpinner);
+        moeilijkheid.setAdapter(adapter);
+
+        arraySpinner = new String[] {"Allergie", "Glutenvrij", "Suikervrij"};
+        adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, arraySpinner);
+        allergie.setAdapter(adapter);
+
+        arraySpinner = new String[] {"Regio", "Afrikaans", "Oosters", "Westers", "Zuid-Amerikaans"};
+        adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, arraySpinner);
+        regio.setAdapter(adapter);
+
     }
 }
