@@ -11,6 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.SearchView;
+import android.widget.Spinner;
 
 import com.example.floriangoeteyn.androidproject3.R;
 import com.example.floriangoeteyn.androidproject3.adapter.RecipeAdapter;
@@ -19,7 +22,9 @@ import com.example.floriangoeteyn.androidproject3.models.Recipe;
 import com.example.floriangoeteyn.androidproject3.models.Restaurant;
 import com.example.floriangoeteyn.androidproject3.rest.RestClient;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -37,8 +42,8 @@ public class RestaurantActivity extends AppCompatActivity implements Callback<Li
 
         dialog = ProgressDialog.show(this, "", "loading...");
 
-        RestClient.RestaurantApiInterface service= RestClient.getRestaurantClient();
-        Call<List<Restaurant>> call=service.getRestaurants();
+        RestClient.RestaurantApiInterface service = RestClient.getRestaurantClient();
+        Call<List<Restaurant>> call = service.getRestaurants();
         call.enqueue(this);
     }
 
@@ -69,13 +74,41 @@ public class RestaurantActivity extends AppCompatActivity implements Callback<Li
         dialog.dismiss();
         restaurants = response.body();
 
-        RecyclerView rv = (RecyclerView)findViewById(R.id.restaurantRyclerView);
+        final RecyclerView rv = (RecyclerView) findViewById(R.id.restaurantRyclerView);
         GridLayoutManager glm = new GridLayoutManager(this, 2);
         rv.setLayoutManager(glm);
 
-        RestaurantAdapter adapter = new RestaurantAdapter(restaurants, this);
+        final RestaurantAdapter adapter = new RestaurantAdapter(restaurants);
         rv.setAdapter(adapter);
 
+        SearchView sv = (SearchView) findViewById(R.id.searchlocation);
+
+
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String text) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String text) {
+                final List<Restaurant> filteredModelList = filter(restaurants, text);
+                adapter.animateTo(filteredModelList);
+                rv.scrollToPosition(0);
+                return true;
+            }
+
+            private List<Restaurant> filter(List<Restaurant> restaurants, String query) {
+                query = query.toLowerCase();
+                final List<Restaurant> filteredModelList = new ArrayList<>();
+                for (Restaurant r : restaurants) {
+                    if (r.getCity().toLowerCase().contains(query) || String.valueOf(r.getPostal()).toLowerCase().contains(query)) {
+                        filteredModelList.add(r);
+                    }
+                }
+                return filteredModelList;
+            }
+        });
 
     }
 
@@ -87,9 +120,11 @@ public class RestaurantActivity extends AppCompatActivity implements Callback<Li
                 .setMessage("Verbind met het internet om de recepten op te halen")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getBaseContext(),MainActivity.class));
-                    }})
+                        startActivity(new Intent(getBaseContext(), MainActivity.class));
+                    }
+                })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+
 }

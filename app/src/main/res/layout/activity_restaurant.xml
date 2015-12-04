@@ -3,6 +3,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:stretchColumns="*"
+        android:shrinkColumns="*"
+        android:background="#a4b239">
+
+        <SearchView
+            android:scaleType="fitCenter"
+            android:id="@+id/searchlocation"
+            android:layout_margin="8dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:queryHint="Voer een locatie of postcode in"
+            android:inputType="textVisiblePassword"
+            android:background="@android:color/white"
+            android:layout_span="5"/>
+
+</LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/restaurantRyclerView"

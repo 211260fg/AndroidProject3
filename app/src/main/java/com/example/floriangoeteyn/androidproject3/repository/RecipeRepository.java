@@ -3,6 +3,7 @@ package com.example.floriangoeteyn.androidproject3.repository;
 import com.example.floriangoeteyn.androidproject3.models.Recipe;
 import com.example.floriangoeteyn.androidproject3.rest.RestClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Call;
@@ -24,6 +25,10 @@ public class RecipeRepository implements Callback<List<Recipe>>{
 
     @Override
     public void onFailure(Throwable t) {
+        recipes=new ArrayList<>();
+    }
 
+    public List<Recipe> getRecipes(){
+        return recipes;
     }
 }
