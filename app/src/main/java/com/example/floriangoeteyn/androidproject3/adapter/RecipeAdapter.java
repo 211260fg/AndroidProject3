@@ -27,7 +27,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     public RecipeAdapter(List<Recipe> recipes, Context context){
         this.context = context;
-        this.recipes=recipes;
+        this.recipes=new ArrayList<>(recipes);
     }
 
     @Override

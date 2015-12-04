@@ -82,7 +82,6 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
     public void onResponse(Response<List<Recipe>> response) {
         dialog.dismiss();
         recipes = response.body();
-        final List<Recipe> theRecipes = response.body();
 
         final RecyclerView rv = (RecyclerView)findViewById(R.id.recipeRecyclerView);
         GridLayoutManager glm = new GridLayoutManager(this, 2);
@@ -104,9 +103,7 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
 
             @Override
             public boolean onQueryTextChange(String text) {
-                final List<Recipe> recipes_ = theRecipes;
-                //blkdfjqlkjqmd
-                final List<Recipe> filteredModelList = filter(recipes_, text);
+                final List<Recipe> filteredModelList = filter(recipes, text);
                 adapter.animateTo(filteredModelList);
                 rv.scrollToPosition(0);
                 return true;
@@ -149,23 +146,23 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
         Spinner regio = (Spinner)findViewById(R.id.regio);
 
         String[] arraySpinner = new String[] {"Type", "Basisbereiding", "Bijgerecht", "Broodbeleg", "Drank", "Hapje", "Hoofdgerecht", "Nagerecht", "Saus", "Soep", "Voorgerecht"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, arraySpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, arraySpinner);
         type.setAdapter(adapter);
 
         arraySpinner = new String[] {"Kooktijd", "Lang", "Middel", "Snel"};
-        adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, arraySpinner);
+        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, arraySpinner);
         kooktijd.setAdapter(adapter);
 
         arraySpinner = new String[] {"Moeilijkheid", "Voor keukenPrinc(ess)en", "Voor starterse ", "Voor enthousiasten"};
-        adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, arraySpinner);
+        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, arraySpinner);
         moeilijkheid.setAdapter(adapter);
 
         arraySpinner = new String[] {"Allergie", "Glutenvrij", "Suikervrij"};
-        adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, arraySpinner);
+        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, arraySpinner);
         allergie.setAdapter(adapter);
 
         arraySpinner = new String[] {"Regio", "Afrikaans", "Oosters", "Westers", "Zuid-Amerikaans"};
-        adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout, arraySpinner);
+        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, arraySpinner);
         regio.setAdapter(adapter);
 
     }
