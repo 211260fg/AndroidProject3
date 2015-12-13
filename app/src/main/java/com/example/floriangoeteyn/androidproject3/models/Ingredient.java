@@ -1,11 +1,20 @@
 package com.example.floriangoeteyn.androidproject3.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by daan on 3/11/2015.
  */
-public class Ingredient {
+public class Ingredient implements Serializable{
     private String ingredient;
     private String value;
+    public Ingredient(String ingredient, String value){
+        this.ingredient=ingredient;
+        this.value=value;
+    }
 
     public String getIngredient() {
         return ingredient;
@@ -23,4 +32,5 @@ public class Ingredient {
         this.value = value;
     }
     public String toString(){return ingredient+"; "+value+" | ";}
+
 }

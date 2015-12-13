@@ -1,6 +1,8 @@
 package com.example.floriangoeteyn.androidproject3.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,10 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.floriangoeteyn.androidproject3.R;
+import com.example.floriangoeteyn.androidproject3.activities.RecipeDetailsActivity;
+import com.example.floriangoeteyn.androidproject3.activities.RestaurantActivity;
 import com.example.floriangoeteyn.androidproject3.models.Recipe;
 import com.squareup.picasso.Picasso;
 
@@ -38,10 +44,26 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     @Override
     public void onBindViewHolder(RecipeViewHolder recipeViewHolder, int i) {
-        recipeViewHolder.recipeTitle.setText(recipes.get(i).getTitle());
-        if(recipes.get(i).getImages()!=null&&recipes.get(i).getImages().size()!=0) {
-            Picasso.with(context).load(recipes.get(i).getImages().get(0).getUrl()).into(recipeViewHolder.recipeImage);
+        final Recipe r = recipes.get(i);
+
+        recipeViewHolder.recipeTitle.setText(r.getTitle());
+        if(r.getImages()!=null&&r.getImages().size()!=0) {
+            Glide.with(context).load(r.getImages().get(0).getUrl()).override(200,100).centerCrop().into(recipeViewHolder.recipeImage);
         }
+
+        recipeViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RecipeDetailsActivity.class);
+                Bundle b = new Bundle();
+                //b.putParcelable("recipe", r);
+                //intent.putExtras(b);
+
+                intent.putExtra("recipe", r);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -106,17 +128,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
 
-    public static class RecipeViewHolder extends RecyclerView.ViewHolder {
+    public static class RecipeViewHolder extends RecyclerView.ViewHolder{
         CardView cv;
         TextView recipeTitle;
         ImageView recipeImage;
 
         RecipeViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView)itemView.findViewById(R.id.recipeCardView);
-            recipeTitle = (TextView)itemView.findViewById(R.id.recipeTitle);
-            recipeImage = (ImageView)itemView.findViewById(R.id.recipeImage);
+            cv = (CardView) itemView.findViewById(R.id.recipeCardView);
+            recipeTitle = (TextView) itemView.findViewById(R.id.recipeTitle);
+            recipeImage = (ImageView) itemView.findViewById(R.id.recipeImage);
         }
+
     }
 
 }

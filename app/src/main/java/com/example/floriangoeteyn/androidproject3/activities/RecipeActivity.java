@@ -16,16 +16,11 @@ import android.widget.Spinner;
 
 import com.example.floriangoeteyn.androidproject3.R;
 import com.example.floriangoeteyn.androidproject3.adapter.RecipeAdapter;
-import com.example.floriangoeteyn.androidproject3.models.Ingredient;
 import com.example.floriangoeteyn.androidproject3.models.Recipe;
 import com.example.floriangoeteyn.androidproject3.repository.RecipeRepository;
 import com.example.floriangoeteyn.androidproject3.rest.RestClient;
 
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.TransformerUtils;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import retrofit.Call;
