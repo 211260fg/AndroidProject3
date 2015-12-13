@@ -78,7 +78,7 @@ public class RestaurantActivity extends AppCompatActivity implements Callback<Li
         GridLayoutManager glm = new GridLayoutManager(this, 2);
         rv.setLayoutManager(glm);
 
-        final RestaurantAdapter adapter = new RestaurantAdapter(restaurants);
+        final RestaurantAdapter adapter = new RestaurantAdapter(restaurants, this);
         rv.setAdapter(adapter);
 
         SearchView sv = (SearchView) findViewById(R.id.searchlocation);

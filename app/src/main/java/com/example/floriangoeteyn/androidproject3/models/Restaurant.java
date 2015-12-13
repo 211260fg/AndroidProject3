@@ -1,11 +1,12 @@
 package com.example.floriangoeteyn.androidproject3.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by floriangoeteyn on 13-Nov-15.
  */
-public class Restaurant implements Challenge{
+public class Restaurant implements Challenge, Serializable{
 
 
     String city;
@@ -18,6 +19,7 @@ public class Restaurant implements Challenge{
     int postal;
     String website_url;
     List<String> features;
+
 
 
     public String getCity() {

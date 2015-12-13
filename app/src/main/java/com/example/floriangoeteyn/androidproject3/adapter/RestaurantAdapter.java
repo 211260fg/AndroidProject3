@@ -1,6 +1,8 @@
 package com.example.floriangoeteyn.androidproject3.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,20 +13,25 @@ import android.widget.TextView;
 
 import com.example.floriangoeteyn.androidproject3.R;
 import com.example.floriangoeteyn.androidproject3.activities.RecipeActivity;
+import com.example.floriangoeteyn.androidproject3.activities.RecipeDetailsActivity;
+import com.example.floriangoeteyn.androidproject3.activities.RestaurantDetailsActivity;
 import com.example.floriangoeteyn.androidproject3.models.Recipe;
 import com.example.floriangoeteyn.androidproject3.models.Restaurant;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder> {
 
 
     private List<Restaurant> restaurants;
+    private Context context;
 
 
-    public RestaurantAdapter(List<Restaurant> restaurants) {
-        this.restaurants = restaurants;
+    public RestaurantAdapter(List<Restaurant> restaurants, Context context) {
+        this.restaurants = new ArrayList<>(restaurants);
+        this.context=context;
     }
 
     @Override
@@ -36,7 +43,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
             public void getDetails(View caller) {
 
 
-
             }
         });
         return vh;
@@ -44,14 +50,27 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
     @Override
     public void onBindViewHolder(RestaurantViewHolder restaurantViewHolder, int i) {
-        restaurantViewHolder.restaurantNaam.setText(restaurants.get(i).getName());
-        restaurantViewHolder.restaurantAdres.setText(restaurants.get(i).getAddress());
-        restaurantViewHolder.restaurantStad.setText(restaurants.get(i).getCity());
+        final Restaurant r = restaurants.get(i);
+        restaurantViewHolder.restaurantNaam.setText(r.getName());
+        restaurantViewHolder.restaurantAdres.setText(r.getAddress());
+        restaurantViewHolder.restaurantStad.setText(r.getCity());
         String features = "";
-        for (String feature : restaurants.get(i).getFeatures()) {
+        for (String feature : r.getFeatures()) {
             features += feature + "\n";
         }
         restaurantViewHolder.restaurantFeatures.setText(features);
+        restaurantViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, RestaurantDetailsActivity.class);
+                Bundle b = new Bundle();
+                //b.putParcelable("recipe", r);
+                //intent.putExtras(b);
+
+                intent.putExtra("restaurant", r);
+                context.startActivity(intent);
+            }
+        });
 
 
     }
