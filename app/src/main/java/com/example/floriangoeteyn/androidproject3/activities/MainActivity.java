@@ -2,11 +2,13 @@ package com.example.floriangoeteyn.androidproject3.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.floriangoeteyn.androidproject3.R;
 
@@ -16,6 +18,20 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hoofdmenu);
+        Button btnChallenges = (Button)findViewById(R.id.btnChallenges);
+        Button btnRestaurants = (Button)findViewById(R.id.btnRestaurants);
+        Button btnRecipes = (Button)findViewById(R.id.btnRecipes);
+        Button btnWorkshops = (Button)findViewById(R.id.btnWorkshops);
+        Button btnPrestaties = (Button)findViewById(R.id.btnPrestaties);
+
+        Typeface artistamp = Typeface.createFromAsset(getAssets(),  "fonts/ArtistampMedium.ttf");
+
+        btnChallenges.setTypeface(artistamp);
+        btnRestaurants.setTypeface(artistamp);
+        btnRecipes.setTypeface(artistamp);
+        btnWorkshops.setTypeface(artistamp);
+        btnPrestaties.setTypeface(artistamp);
+
     }
 
     @Override

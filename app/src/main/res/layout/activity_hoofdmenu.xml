@@ -13,61 +13,75 @@
     >
     <TableRow android:layout_weight="1">
 
-        <ImageButton android:layout_height="fill_parent"
+        <Button android:layout_height="fill_parent"
+            android:id="@+id/btnChallenges"
             android:elevation="4dp"
             android:scaleType="fitCenter"
             android:layout_margin="5dp"
             android:layout_width="0dp"
-            android:text="@string/btnChallenges"
             android:layout_column="0"
             android:layout_span="2"
-            android:background="@mipmap/test"/>
+            android:background="@mipmap/test"
+            android:textColor="@android:color/white"
+            android:textSize="22dp"
+            android:textStyle="bold"/>
     </TableRow>
 
     <TableRow android:layout_weight="1">
 
-        <ImageButton android:layout_height="fill_parent"
+        <Button android:layout_height="fill_parent"
+            android:id="@+id/btnRestaurants"
             android:elevation="4dp"
             android:scaleType="fitCenter"
             android:layout_margin="5dp"
             android:layout_width="0dp"
-            android:text="@string/btnRestaurants"
             android:layout_column="0"
             android:background="@mipmap/restaurant"
-            android:onClick="showRestaurants"/>
+            android:onClick="showRestaurants"
+            android:textColor="@android:color/white"
+            android:textSize="22dp"
+            android:textStyle="bold"/>
 
-        <ImageButton android:layout_height="fill_parent"
+        <Button android:layout_height="fill_parent"
+            android:id="@+id/btnRecipes"
             android:elevation="4dp"
             android:scaleType="fitCenter"
             android:layout_margin="5dp"
             android:layout_width="0dp"
-            android:text="@string/btnRecepten"
             android:layout_column="1"
             android:background="@mipmap/recepten"
             android:onClick="showRecipes"
-            />
+            android:textColor="@android:color/white"
+            android:textSize="22dp"
+            android:textStyle="bold"/>
 
     </TableRow>
 
     <TableRow android:layout_weight="1">
 
-        <ImageButton android:layout_height="fill_parent"
+        <Button android:layout_height="fill_parent"
+            android:id="@+id/btnWorkshops"
             android:elevation="4dp"
             android:scaleType="fitCenter"
             android:layout_margin="5dp"
             android:layout_width="0dp"
-            android:text="@string/btnWorkshops"
             android:layout_column="0"
-            android:background="@mipmap/workshops"/>
+            android:background="@mipmap/workshops"
+            android:textColor="@android:color/white"
+            android:textSize="22dp"
+            android:textStyle="bold"/>
 
-        <ImageButton android:layout_height="fill_parent"
+        <Button android:layout_height="fill_parent"
+            android:id="@+id/btnPrestaties"
             android:elevation="4dp"
             android:scaleType="fitCenter"
             android:layout_margin="5dp"
             android:layout_width="0dp"
-            android:text="@string/btnPrestaties"
             android:layout_column="1"
-            android:background="@mipmap/test"/>
+            android:background="@mipmap/test"
+            android:textColor="@android:color/white"
+            android:textSize="22dp"
+            android:textStyle="bold"/>
 
     </TableRow>
 </TableLayout>
