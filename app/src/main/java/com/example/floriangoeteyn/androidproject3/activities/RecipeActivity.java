@@ -29,17 +29,13 @@ import retrofit.Response;
 
 public class RecipeActivity extends AppCompatActivity implements Callback<List<Recipe>> {
 
-    private RecipeRepository recipeRepository;
     private List<Recipe> recipes;
     private ProgressDialog dialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        recipeRepository = new RecipeRepository();
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_recipe);
 
         dialog = ProgressDialog.show(this, "", "loading...");
@@ -78,6 +74,26 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
         dialog.dismiss();
         recipes = response.body();
 
+        createRecipeView();
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+        dialog.dismiss();
+        new AlertDialog.Builder(this)
+                .setTitle("Connectie probleem")
+                .setMessage("Verbind met het internet om de recepten op te halen")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(getBaseContext(),MainActivity.class));
+                    }})
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
+
+
+    public void createRecipeView(){
         final RecyclerView rv = (RecyclerView)findViewById(R.id.recipeRecyclerView);
         GridLayoutManager glm = new GridLayoutManager(this, 2);
         rv.setLayoutManager(glm);
@@ -108,7 +124,7 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
                 query = query.toLowerCase();
                 final List<Recipe> filteredModelList = new ArrayList<>();
                 for (Recipe r : recipes) {
-                    if (r.getTitle().toLowerCase().contains(query)){
+                    if (r.getTitle().toLowerCase().contains(query)) {
                         filteredModelList.add(r);
                     }
                 }
@@ -118,20 +134,6 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
     }
 
 
-
-    @Override
-    public void onFailure(Throwable t) {
-        dialog.dismiss();
-        new AlertDialog.Builder(this)
-                .setTitle("Connectie probleem")
-                .setMessage("Verbind met het internet om de recepten op te halen")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getBaseContext(),MainActivity.class));
-                    }})
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
 
     public void createDropdownLists(){
         Spinner type = (Spinner)findViewById(R.id.types);

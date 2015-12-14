@@ -74,6 +74,11 @@ public class RestaurantActivity extends AppCompatActivity implements Callback<Li
         dialog.dismiss();
         restaurants = response.body();
 
+        createRestaurantsView();
+
+    }
+
+    public void createRestaurantsView(){
         final RecyclerView rv = (RecyclerView) findViewById(R.id.restaurantRyclerView);
         GridLayoutManager glm = new GridLayoutManager(this, 2);
         rv.setLayoutManager(glm);
@@ -109,7 +114,6 @@ public class RestaurantActivity extends AppCompatActivity implements Callback<Li
                 return filteredModelList;
             }
         });
-
     }
 
     @Override

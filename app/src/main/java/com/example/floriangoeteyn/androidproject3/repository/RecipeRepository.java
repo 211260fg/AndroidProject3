@@ -3,6 +3,7 @@ package com.example.floriangoeteyn.androidproject3.repository;
 import com.example.floriangoeteyn.androidproject3.models.Recipe;
 import com.example.floriangoeteyn.androidproject3.rest.RestClient;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,11 @@ import retrofit.Response;
 public class RecipeRepository implements Callback<List<Recipe>>{
     private List<Recipe> recipes;
 
-
+    public RecipeRepository(){
+        RestClient.RecipeApiInterface service= RestClient.getRecipeClient();
+        Call<List<Recipe>> call=service.getRecipes();
+        call.enqueue(this);
+    }
 
     @Override
     public void onResponse(Response<List<Recipe>> response) {

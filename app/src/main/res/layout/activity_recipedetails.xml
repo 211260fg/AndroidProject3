@@ -19,10 +19,10 @@
 
     <ImageView
         android:id="@+id/recipeImage"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,11 +31,12 @@
 
         <ListView
             android:id="@+id/lvIngredients"
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:fadeScrollbars="false"
-            android:layout_marginRight="7dp">
+            android:layout_marginRight="7dp"
+            android:layout_weight="50">
         </ListView>
 
 
@@ -46,7 +47,8 @@
             android:gravity="left"
             android:textSize="15dp"
             android:maxLines="999"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical"
+            android:layout_weight="50"/>
 
     </LinearLayout>
 
