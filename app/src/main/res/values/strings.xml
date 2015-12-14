@@ -10,6 +10,6 @@
     <string name="title_activity_restaurant">RestaurantActivity</string>
 
     <string name="title_activity_recipe_details">Recept info</string>
-    <string name="title_activity_restaurant_details">Map</string>
+    <string name="title_activity_restaurant_details">Restaurant info</string>
 
 </resources>

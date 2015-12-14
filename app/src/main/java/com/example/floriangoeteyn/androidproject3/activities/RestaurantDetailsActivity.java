@@ -2,21 +2,51 @@ package com.example.floriangoeteyn.androidproject3.activities;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.floriangoeteyn.androidproject3.R;
+import com.example.floriangoeteyn.androidproject3.models.Restaurant;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class RestaurantDetailsActivity extends FragmentActivity {
+public class RestaurantDetailsActivity extends AppCompatActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private Restaurant restaurant;
+
+    TextView restaurantNaam;
+    TextView restaurantAdres;
+    TextView restaurantCity;
+    TextView restaurantWebsite;
+    TextView restaurantDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurantdetails);
+
+        restaurant = (Restaurant) this.getIntent().getSerializableExtra("restaurant");
+
+
+        restaurantNaam = (TextView)findViewById(R.id.restaurantNaam);
+        restaurantAdres = (TextView)findViewById(R.id.restaurantAdres);
+        restaurantCity = (TextView)findViewById(R.id.restaurantCity);
+        restaurantWebsite = (TextView)findViewById(R.id.restaurantWebsite);
+        restaurantDesc = (TextView)findViewById(R.id.restaurantDesc);
+
+
+        restaurantNaam.setText(restaurant.getName());
+        restaurantAdres.setText(restaurant.getAddress());
+        restaurantCity.setText(restaurant.getCity());
+        restaurantWebsite.setText(restaurant.getWebsite_url());
+        restaurantDesc.setText(restaurant.getDesc_long());
+
         setUpMapIfNeeded();
     }
 
@@ -25,6 +55,8 @@ public class RestaurantDetailsActivity extends FragmentActivity {
         super.onResume();
         setUpMapIfNeeded();
     }
+
+
 
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
@@ -61,6 +93,33 @@ public class RestaurantDetailsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        LatLng positie = new LatLng(restaurant.getLat(), restaurant.getLng());
+
+        mMap.addMarker(new MarkerOptions().position(positie).title(restaurant.getName()));
+        float zoomLevel = (float) 14.0; //This goes up to 21
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(positie, zoomLevel));
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_restaurant_details, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -1,5 +1,61 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:id="@+id/map"
-    tools:context="com.example.floriangoeteyn.androidproject3.activities.RestaurantDetailsActivity"
-    android:name="com.google.android.gms.maps.SupportMapFragment" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.floriangoeteyn.androidproject3.activities.RecipeDetailsActivity">
+
+    <TextView
+        android:id="@+id/restaurantNaam"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="22dp"
+        android:paddingBottom="5dp"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+>
+
+        <TextView
+            android:id="@+id/restaurantAdres"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/restaurantCity"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/restaurantWebsite"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"/>
+
+        <TextView
+            android:id="@+id/restaurantDesc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"/>
+
+    </LinearLayout>
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:context="com.example.floriangoeteyn.androidproject3.activities.RestaurantDetailsActivity" />
+
+
+</LinearLayout>

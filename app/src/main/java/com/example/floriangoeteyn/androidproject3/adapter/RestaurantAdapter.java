@@ -64,9 +64,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
             public void onClick(View v) {
                 Intent intent = new Intent(context, RestaurantDetailsActivity.class);
                 Bundle b = new Bundle();
-                //b.putParcelable("recipe", r);
-                //intent.putExtras(b);
-
                 intent.putExtra("restaurant", r);
                 context.startActivity(intent);
             }
