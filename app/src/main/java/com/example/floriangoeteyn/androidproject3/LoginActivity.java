@@ -1,7 +1,6 @@
 package com.example.floriangoeteyn.androidproject3;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,33 +11,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
-
 import com.example.floriangoeteyn.androidproject3.domein.DomeinController;
 import com.example.floriangoeteyn.androidproject3.domein.Gebruiker;
-import com.example.floriangoeteyn.androidproject3.persistentie.HerokuService;
-import com.example.floriangoeteyn.androidproject3.persistentie.RetrofitHelper;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.squareup.okhttp.RequestBody;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -59,6 +51,9 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        emailView.setText("testje@gmail.com");
+        wachtwoordView.setText("a");
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -115,14 +110,11 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Response<Gebruiker> response, Retrofit retrofit) {
                     if (response.isSuccess()) {
                         dc.setToken(response.body().getToken());
-
                         loginError.setText("");
                         goToMain();
                     } else {
                         loginError.setText(bepaalErrorBoodschap(response.code()));
-
                     }
-
                     btnLoginClickable();
                 }
 

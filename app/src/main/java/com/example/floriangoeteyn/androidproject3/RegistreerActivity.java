@@ -2,13 +2,30 @@ package com.example.floriangoeteyn.androidproject3;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.floriangoeteyn.androidproject3.Fragments.GebruikersInfoFragment;
+import com.example.floriangoeteyn.androidproject3.domein.DomeinController;
+import com.example.floriangoeteyn.androidproject3.domein.Gebruiker;
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,16 +34,6 @@ import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
-
-import com.example.floriangoeteyn.androidproject3.Fragments.GebruikersInfoFragment;
-import com.example.floriangoeteyn.androidproject3.domein.DomeinController;
-import com.example.floriangoeteyn.androidproject3.domein.Gebruiker;
-import com.example.floriangoeteyn.androidproject3.persistentie.RetrofitHelper;
-import com.facebook.AccessToken;
-import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-
-import java.io.IOException;
 
 public class RegistreerActivity extends AppCompatActivity {
 
@@ -37,7 +44,9 @@ public class RegistreerActivity extends AppCompatActivity {
     @Bind(R.id.registreerError) TextView registreerError;
     @Bind(R.id.btnRegistreer) Button btnRegistreer;
     private GebruikersInfoFragment infoFragment;
-    private EditText geboortedatum;
+    private EditText gebruikersnaamView, geboortedatumView;
+    private Spinner leefsituatieView, gezinsledenView, ervaringView;
+
 
     private DomeinController dc;
 
@@ -55,6 +64,15 @@ public class RegistreerActivity extends AppCompatActivity {
 
         dc = DomeinController.getInstance();
 
+        infoFragment =  (GebruikersInfoFragment) getSupportFragmentManager().findFragmentById(R.id.infoFragment);
+        gebruikersnaamView = infoFragment.getGebruikersnaam();
+        geboortedatumView = infoFragment.getGeboortedatum();
+        leefsituatieView = infoFragment.getLeefsituatie();
+        gezinsledenView = infoFragment.getGezinsleden();
+        ervaringView = infoFragment.getErvaring();
+
+        testWaarden();
+
         if (Profile.getCurrentProfile() != null) {
             if (AccessToken.getCurrentAccessToken().getPermissions().contains("email")) {
                 emailView.setText(dc.getFacebookInfo("email"));
@@ -66,15 +84,14 @@ public class RegistreerActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "niet ingelogd", Toast.LENGTH_LONG).show();
         }
 
-        /*
-        infoFragment = (GebruikersInfoFragment) getFragmentManager().findFragmentById(R.id.infoFragment);
-        geboortedatum = infoFragment.getGeboortedatumEditText();
 
-        geboortedatum.
-        */
+    }
 
-
-
+    private void testWaarden() {
+        emailView.setText("test@gmail.com");
+        wachtwoordView.setText("a");
+        wachtwoordOpnieuwView.setText("a");
+        gebruikersnaamView.setText("tester");
     }
 
     @OnClick(R.id.btnRegistreer)
@@ -84,9 +101,24 @@ public class RegistreerActivity extends AppCompatActivity {
         if (wachtwoord.equals(wachtwoordOpnieuwView.getText().toString())) {
 
             String email = emailView.getText().toString();
+            String gebruikersnaam = gebruikersnaamView.getText().toString();
+            String geboortedatum = geboortedatumView.getText().toString();;
+            String leefsituatie = leefsituatieView.getSelectedItem().toString();
+            int gezinsleden = Integer.parseInt(gezinsledenView.getSelectedItem().toString());
+            int ervaring = ervaringView.getSelectedItemPosition();
+
 
             try {
-                Call<Gebruiker> call = dc.registreer(email, wachtwoord);
+
+                DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = format.parse(geboortedatum);
+
+                Toast.makeText(getApplicationContext(),
+                        date.toString(),
+                        Toast.LENGTH_LONG).show();
+
+                Call<Gebruiker> call = dc.registreer(
+                        email, wachtwoord, gebruikersnaam, date, leefsituatie, gezinsleden, ervaring);
 
                 call.enqueue(new Callback<Gebruiker>() {
                     @Override
@@ -96,6 +128,7 @@ public class RegistreerActivity extends AppCompatActivity {
                             //eerst nog opvragen van informatie!
                             Intent intent = new Intent(RegistreerActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
 
                         } else {
                             registreerError.setText(bepaalErrorBoodschap(response.code()));
@@ -110,7 +143,7 @@ public class RegistreerActivity extends AppCompatActivity {
                     }
                 });
 
-            } catch (IOException ex) {
+            } catch (IOException | ParseException ex) {
                 Toast.makeText(getApplicationContext(),
                         ex.getMessage(),
                         Toast.LENGTH_LONG).show();

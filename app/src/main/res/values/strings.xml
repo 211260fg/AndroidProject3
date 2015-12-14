@@ -33,7 +33,7 @@
 
     <!-- REGISTREER ACTIVITY -->
     <string name="registreer_titel">Creatie nieuwe account</string>
-    <string name="prompt_wachtwoord_opnieuw">Wachtwoord opnieuw invoeren</string>
+    <string name="prompt_wachtwoord_opnieuw">Wachtwoord (herhaling)</string>
     <string name="registreer">Mijn account aanmaken</string>
     <string name="registreer_error_400">Alle velden moeten ingevuld zijn!</string>
     <string name="registreer_error_500">Deze email is reeds ingenomen. :( </string>
@@ -46,8 +46,7 @@
     <string name="opslaan">Sla op</string>
     <string name="info_titel_normaal">Bekijk of bevestig je persoonlijke informatie.</string>
     <string name="info_titel_eerste_keer">Welkom en bedankt om de Eva Challenge aan te gaan!\n
-        Om je uitdagingen beter aan je leefsituatie aan te kunnen passen hadden we graag nog wat extra informatie gehad.\n
-        Velden met een * zijn verplicht.</string>
+        Om je uitdagingen beter aan je leefsituatie aan te kunnen passen hadden we graag nog wat extra informatie gehad.</string>
     <string name="username">Gebruikersnaam</string>
     <string name="geboortedatum">Geboortedatum</string>
     <string name="geslacht">Geslacht</string>

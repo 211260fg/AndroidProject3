@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 
 import retrofit.Call;
 
@@ -20,6 +21,7 @@ public class DomeinController {
 
     private Gebruiker gebruiker;
     private PersistentieController pc;
+    private String token;
 
     private static DomeinController dc;
 
@@ -34,7 +36,7 @@ public class DomeinController {
         return dc;
     }
 
-    public Call<JSONObject> test() {return pc.test(gebruiker.getToken()); }
+    public Call<JSONObject> test() {return pc.test(getToken()); }
 
     public String getFacebookInfo(String req) {
         return pc.getFacebookInfo(req);
@@ -45,9 +47,15 @@ public class DomeinController {
         return pc.login(gebruiker);
     }
 
-    public Call<Gebruiker> registreer(String email, String password) throws IOException {
-        gebruiker = new Gebruiker(email, password);
+    public Call<Gebruiker> registreer(String email, String password, String gebruikersnaam,
+                                      Date geboortedatum, String leefsituatie, int gezinsleden, int ervaring) throws IOException {
+        gebruiker = new Gebruiker(email, password, gebruikersnaam, geboortedatum, leefsituatie,
+                                    gezinsleden, ervaring);
         return pc.registreer(gebruiker);
+    }
+
+    public Call<Gebruiker> getPersistentieGebruiker() throws IOException {
+        return pc.getGebruiker(gebruiker);
     }
 
     public Gebruiker getGebruiker() {
@@ -66,7 +74,7 @@ public class DomeinController {
         this.pc = pc;
     }
 
-    public String getToken() { return gebruiker.getToken(); }
+    public String getToken() { return token; }
 
-    public void setToken(String token) { gebruiker.setToken(token); }
+    public void setToken(String token) { this.token = token; }
 }

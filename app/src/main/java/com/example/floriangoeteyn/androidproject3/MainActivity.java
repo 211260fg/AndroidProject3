@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.floriangoeteyn.androidproject3.domein.DomeinController;
+import com.example.floriangoeteyn.androidproject3.domein.Gebruiker;
 import com.example.floriangoeteyn.androidproject3.persistentie.RetrofitHelper;
 
 import org.json.JSONObject;
@@ -35,12 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     private DomeinController dc;
 
-
-
-
     @OnClick(R.id.test)
     public void testje(View view) {
-        Log.d("Token:", dc.getToken());
 
         try {
             Call<JSONObject> call = dc.test();
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                                 "yooooooooooooooo",
                                 Toast.LENGTH_LONG).show();
                     } else {
-
                         Toast.makeText(getApplicationContext(),
                                 "" + response.code(),
                                 Toast.LENGTH_LONG).show();
@@ -84,9 +81,14 @@ public class MainActivity extends AppCompatActivity {
 
         dc = DomeinController.getInstance();
 
-        setSupportActionBar(toolbar);
+        setGebruiker();
 
-        getSupportActionBar().setTitle("");
+        setSupportActionBar(toolbar);
+        View mActionBarView = getLayoutInflater().inflate(R.layout.my_action_bar, null);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("");
+        actionBar.setCustomView(mActionBarView);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 
     }
 
@@ -119,5 +121,36 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    public void setGebruiker() {
+        try {
+            Call<Gebruiker> call = dc.getPersistentieGebruiker();
+
+            call.enqueue(new Callback<Gebruiker>() {
+                @Override
+                public void onResponse(Response<Gebruiker> response, Retrofit retrofit) {
+                    if (response.isSuccess()) {
+                        dc.setGebruiker(response.body());
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                "" + response.code(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    Toast.makeText(getApplicationContext(),
+                            t.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(),
+                    ex.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }

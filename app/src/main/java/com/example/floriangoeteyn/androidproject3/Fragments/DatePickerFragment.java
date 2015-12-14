@@ -38,6 +38,8 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        geboortedatum.setText(day + "/" + (month + 1) + "/" + year);
+        String dag = (day >= 10 ? "" : "0") + day;
+        String maand = (month >= 9 ? "" : "0") + (month+1);
+        geboortedatum.setText(dag + "/" + maand + "/" + year);
     }
 }

@@ -1,41 +1,25 @@
 package com.example.floriangoeteyn.androidproject3.Fragments;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.NumberPicker;
-import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.example.floriangoeteyn.androidproject3.Fragments.DatePickerFragment;
 import com.example.floriangoeteyn.androidproject3.R;
 import com.example.floriangoeteyn.androidproject3.domein.DomeinController;
-
-import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
 
 public class GebruikersInfoFragment extends Fragment {
 
-    @Bind(R.id.voornaam) EditText voornaam;
+    @Bind(R.id.gebruikersnaam) EditText gebruikersnaam;
     @Bind(R.id.geboortedatum) EditText geboortedatum;
     @Bind(R.id.leefsituatie) Spinner leefsituatie;
     @Bind(R.id.gezinsleden) Spinner gezinsleden;
@@ -70,7 +54,7 @@ public class GebruikersInfoFragment extends Fragment {
 
 
         //geboortedatum dag van vandaag invullen
-        geboortedatum.setText("1/1/2015");
+        geboortedatum.setText("1/1/1990");
 
         //leefsituatie default: getrouwd (?)
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
@@ -101,8 +85,24 @@ public class GebruikersInfoFragment extends Fragment {
         dialogFragment.show(getFragmentManager(), "tag");
     }
 
-    public EditText getGeboortedatumEditText() {
+    public EditText getGebruikersnaam() {
+        return gebruikersnaam;
+    }
+
+    public EditText getGeboortedatum() {
         return geboortedatum;
+    }
+
+    public Spinner getLeefsituatie() {
+        return leefsituatie;
+    }
+
+    public Spinner getGezinsleden() {
+        return gezinsleden;
+    }
+
+    public Spinner getErvaring() {
+        return ervaring;
     }
 
     /*

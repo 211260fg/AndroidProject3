@@ -1,6 +1,6 @@
 package com.example.floriangoeteyn.androidproject3.domein;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by Jeroen on 4/11/2015.
@@ -14,7 +14,7 @@ public class Gebruiker {
     private Date birthyear;
     private String gender;
     private int experience;
-    private String leefSituatie;
+    private String leefsituatie;
     private int family;
     private Date dayStarted;
     private String facebookId;
@@ -27,6 +27,16 @@ public class Gebruiker {
     public Gebruiker(String email, String password) {
         setEmail(email);
         setPassword(password);
+    }
+
+    public Gebruiker(String email, String password, String gebruikersnaam,
+                     Date geboortedatum, String leefsituatie, int gezinsleden, int ervaring) {
+        this(email, password);
+        setUsername(gebruikersnaam);
+        setBirthyear(geboortedatum);
+        setLeefsituatie(leefsituatie);
+        setFamily(gezinsleden);
+        setExperience(ervaring);
     }
 
     public String getEmail() {
@@ -85,12 +95,12 @@ public class Gebruiker {
         this.experience = experience;
     }
 
-    public String getLeefSituatie() {
-        return leefSituatie;
+    public String getLeefsituatie() {
+        return leefsituatie;
     }
 
-    public void setLeefSituatie(String leefSituatie) {
-        this.leefSituatie = leefSituatie;
+    public void setLeefsituatie(String leefsituatie) {
+        this.leefsituatie = leefsituatie;
     }
 
     public int getFamily() {

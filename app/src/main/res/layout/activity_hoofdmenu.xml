@@ -18,11 +18,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:logo="@mipmap/chalkboard"
-        android:background="@color/zwart"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
 
         <ImageView
@@ -49,8 +47,8 @@
 
     <TableRow android:layout_weight="1">
 
-        <ImageButton android:layout_height="fill_parent"
-            android:id="@+id/test2"
+        <ImageButton android:id="@+id/test2"
+            android:layout_height="fill_parent"
             android:layout_width="0dp"
             android:layout_margin="5dp"
             android:text="@string/btnRestaurants"

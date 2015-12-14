@@ -5,6 +5,8 @@ package com.example.floriangoeteyn.androidproject3.persistentie;
  */
 
 import com.example.floriangoeteyn.androidproject3.domein.Gebruiker;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
@@ -22,10 +24,16 @@ public class PersistentieController implements Serializable {
 
     public PersistentieController() {
         facebookGraphAPI = new FacebookGraphAPI();
+
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'")
+                .create();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://eva-app-nodejs.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
+
         service = retrofit.create(HerokuService.class);
     }
 
@@ -49,6 +57,12 @@ public class PersistentieController implements Serializable {
 
     public Call<Gebruiker> registreer(Gebruiker gebruiker) throws IOException {
         Call<Gebruiker> call = service.registreer(gebruiker);
+
+        return call;
+    }
+
+    public Call<Gebruiker> getGebruiker(Gebruiker gebruiker) throws IOException {
+        Call<Gebruiker> call = service.getGebruiker(gebruiker);
 
         return call;
     }
