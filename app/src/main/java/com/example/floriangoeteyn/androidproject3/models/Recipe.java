@@ -15,17 +15,12 @@ public class Recipe implements Challenge, Serializable{
     private String tagline;
     private String quote;
     private String desc;
+    private String recipe_type;
+    private String skill;
+    private String time;
     private List<Ingredient> ingredients= new ArrayList<>();
     private List<Image> images = new ArrayList<>();
 
-    public Recipe(String title, String tagline, String quote, String desc, List<Ingredient> ingredients, List<Image> images){
-        this.title=title;
-        this.tagline=tagline;
-        this.quote=quote;
-        this.desc=desc;
-        this.ingredients=ingredients;
-        this.images=images;
-    }
 
     public String getTitle() {
         return title;
@@ -69,6 +64,30 @@ public class Recipe implements Challenge, Serializable{
 
     public List<Image> getImages() {
         return images;
+    }
+
+    public String getRecipe_type() {
+        return recipe_type;
+    }
+
+    public void setRecipe_type(String recipe_type) {
+        this.recipe_type = recipe_type;
+    }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public void setImages(List<Image> images) {

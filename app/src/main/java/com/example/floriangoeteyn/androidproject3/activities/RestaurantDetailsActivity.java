@@ -3,6 +3,8 @@ package com.example.floriangoeteyn.androidproject3.activities;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -44,8 +46,10 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         restaurantNaam.setText(restaurant.getName());
         restaurantAdres.setText(restaurant.getAddress());
         restaurantCity.setText(restaurant.getCity());
-        restaurantWebsite.setText(restaurant.getWebsite_url());
+        restaurantWebsite.setText(Html.fromHtml("<a href=\""+restaurant.getWebsite_url()+"\">"+restaurant.getWebsite_url()+"</a>"));
         restaurantDesc.setText(restaurant.getDesc_long());
+
+        restaurantWebsite.setMovementMethod(LinkMovementMethod.getInstance());
 
         setUpMapIfNeeded();
     }

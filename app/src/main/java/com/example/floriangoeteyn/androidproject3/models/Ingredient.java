@@ -11,10 +11,6 @@ import java.io.Serializable;
 public class Ingredient implements Serializable{
     private String ingredient;
     private String value;
-    public Ingredient(String ingredient, String value){
-        this.ingredient=ingredient;
-        this.value=value;
-    }
 
     public String getIngredient() {
         return ingredient;

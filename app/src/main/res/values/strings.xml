@@ -7,9 +7,15 @@
     <string name="btnWorkshops">Workshops</string>
     <string name="btnPrestaties">Prestaties</string>
     <string name="title_activity_recipe">Recepten</string>
-    <string name="title_activity_restaurant">RestaurantActivity</string>
+    <string name="title_activity_restaurant">Restaurants</string>
 
     <string name="title_activity_recipe_details">Recept info</string>
     <string name="title_activity_restaurant_details">Restaurant info</string>
+    <string name="title_activity_challenge_chooser_acitvity">Kies Challenge</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_challenge_viewer">Jouw Challenge</string>
+    <string name="title_activity_challengeype_chooser">Kies Challenge</string>
+    <string name="title_activity_challenge_type">Kies Type</string>
 
 </resources>

@@ -63,4 +63,8 @@ public class MainActivity extends Activity {
     public void showRestaurants(View view) {
         startActivity(new Intent(this, RestaurantActivity.class));
     }
+
+    public void showChallenges(View view) {
+        startActivity(new Intent(this, ChallengeTypeActivity.class));
+    }
 }

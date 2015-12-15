@@ -18,7 +18,7 @@
             android:layout_margin="8dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:queryHint="Voer een locatie of postcode in"
+            android:queryHint="Vul een locatie in"
             android:inputType="textVisiblePassword"
             android:background="@android:color/white"
             android:layout_span="5"/>

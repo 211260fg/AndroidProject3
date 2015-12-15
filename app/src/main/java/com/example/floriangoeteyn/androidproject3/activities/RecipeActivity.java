@@ -10,6 +10,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -102,7 +104,7 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
         rv.setAdapter(adapter);
 
 
-        createDropdownLists();
+        createDropdownLists(adapter);
         SearchView sv = (SearchView)findViewById(R.id.searchingredient);
 
 
@@ -130,37 +132,123 @@ public class RecipeActivity extends AppCompatActivity implements Callback<List<R
                 }
                 return filteredModelList;
             }
+
         });
     }
 
 
 
-    public void createDropdownLists(){
+    public void createDropdownLists(final RecipeAdapter recipeAdapter){
         Spinner type = (Spinner)findViewById(R.id.types);
         Spinner kooktijd = (Spinner)findViewById(R.id.kooktijd);
         Spinner moeilijkheid = (Spinner)findViewById(R.id.moeilijkheid);
-        Spinner allergie = (Spinner)findViewById(R.id.allergie);
-        Spinner regio = (Spinner)findViewById(R.id.regio);
+        //Spinner allergie = (Spinner)findViewById(R.id.allergie);
+        //Spinner regio = (Spinner)findViewById(R.id.regio);
 
-        String[] arraySpinner = new String[] {"Type", "Basisbereiding", "Bijgerecht", "Broodbeleg", "Drank", "Hapje", "Hoofdgerecht", "Nagerecht", "Saus", "Soep", "Voorgerecht"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, arraySpinner);
+        final String[] types = new String[] {"Type", "Basisbereiding", "Bijgerecht", "Broodbeleg", "Drank", "Hapje", "Hoofdgerecht", "Nagerecht", "Saus", "Soep", "Voorgerecht"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, types);
         type.setAdapter(adapter);
 
-        arraySpinner = new String[] {"Kooktijd", "Lang", "Middel", "Snel"};
-        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, arraySpinner);
+        final String[] kooktijden = new String[] {"Kooktijd", "Lang", "Middel", "Snel"};
+        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, kooktijden);
         kooktijd.setAdapter(adapter);
 
-        arraySpinner = new String[] {"Moeilijkheid", "Voor keukenPrinc(ess)en", "Voor starterse ", "Voor enthousiasten"};
-        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, arraySpinner);
+        final String[] moeilijkheden = new String[] {"Moeilijkheid", "Voor enthousiasten", "Voor keukenPrinc(ess)en", "Voor starters"};
+        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, moeilijkheden);
         moeilijkheid.setAdapter(adapter);
-
-        arraySpinner = new String[] {"Allergie", "Glutenvrij", "Suikervrij"};
-        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, arraySpinner);
+        /*
+        String[] allergieen = new String[] {"Allergie", "Glutenvrij", "Suikervrij"};
+        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, allergieen);
         allergie.setAdapter(adapter);
 
-        arraySpinner = new String[] {"Regio", "Afrikaans", "Oosters", "Westers", "Zuid-Amerikaans"};
-        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, arraySpinner);
-        regio.setAdapter(adapter);
+        String[] regios = new String[] {"Regio", "Afrikaans", "Oosters", "Westers", "Zuid-Amerikaans"};
+        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, regios);
+        regio.setAdapter(adapter);*/
 
+        type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                final List<Recipe> filteredModelList = filter(recipes, position);
+                recipeAdapter.animateTo(filteredModelList);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {}
+
+            private List<Recipe> filter(List<Recipe> recipes, int position) {
+                if(position!=0) {
+                    String query = types[position].toLowerCase();
+                    final List<Recipe> filteredModelList = new ArrayList<>();
+                    for (Recipe r : recipes) {
+                        if (r.getRecipe_type().toLowerCase().contains(query)) {
+                            filteredModelList.add(r);
+                        }
+                    }
+
+                    return filteredModelList;
+                }else{
+                    return recipes;
+                }
+            }
+
+        });
+
+        kooktijd.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                final List<Recipe> filteredModelList = filter(recipes, position);
+                recipeAdapter.animateTo(filteredModelList);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {}
+
+            private List<Recipe> filter(List<Recipe> recipes, int position) {
+                if(position!=0) {
+                    String query = kooktijden[position].toLowerCase();
+                    final List<Recipe> filteredModelList = new ArrayList<>();
+                    for (Recipe r : recipes) {
+                        if (r.getTime().toLowerCase().contains(query)) {
+                            filteredModelList.add(r);
+                        }
+                    }
+
+                    return filteredModelList;
+                }else{
+                    return recipes;
+                }
+            }
+
+        });
+
+        moeilijkheid.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                final List<Recipe> filteredModelList = filter(recipes, position);
+                recipeAdapter.animateTo(filteredModelList);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {}
+
+            private List<Recipe> filter(List<Recipe> recipes, int position) {
+                if(position!=0) {
+                    final List<Recipe> filteredModelList = new ArrayList<>();
+                    for (Recipe r : recipes) {
+                        if (Integer.parseInt(r.getSkill()) == position) {
+                            filteredModelList.add(r);
+                        }
+                    }
+
+                    return filteredModelList;
+                }else{
+                    return recipes;
+                }
+            }
+
+        });
     }
 }

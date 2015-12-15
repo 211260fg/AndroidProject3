@@ -56,6 +56,18 @@
             android:name=".activities.RestaurantDetailsActivity"
             android:label="@string/title_activity_restaurant_details" >
         </activity>
+        <activity
+            android:name=".activities.ChallengeChooserActivity"
+            android:label="@string/title_activity_challenge_chooser_acitvity" >
+        </activity>
+        <activity
+            android:name=".activities.ChallengeViewerActivity"
+            android:label="@string/title_activity_challenge_viewer" >
+        </activity>
+        <activity
+            android:name=".activities.ChallengeTypeActivity"
+            android:label="@string/title_activity_challenge_type" >
+        </activity>
     </application>
 
 </manifest>

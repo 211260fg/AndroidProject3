@@ -29,28 +29,21 @@
             <Spinner
                 android:scaleType="fitCenter"
                 android:id="@+id/moeilijkheid"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <Spinner
-                android:scaleType="fitCenter"
-                android:id="@+id/allergie"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <Spinner
-                android:scaleType="fitCenter"
-                android:id="@+id/regio"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_weight="1" />
             <Spinner
                 android:scaleType="fitCenter"
                 android:id="@+id/types"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_weight="1"/>
             <Spinner
                 android:scaleType="fitCenter"
                 android:id="@+id/kooktijd"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_weight="1"/>
 
         </TableRow>
 

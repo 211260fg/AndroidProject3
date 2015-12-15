@@ -107,7 +107,7 @@ public class RestaurantActivity extends AppCompatActivity implements Callback<Li
                 query = query.toLowerCase();
                 final List<Restaurant> filteredModelList = new ArrayList<>();
                 for (Restaurant r : restaurants) {
-                    if (r.getCity().toLowerCase().contains(query) || String.valueOf(r.getPostal()).toLowerCase().contains(query)) {
+                    if (r.getCity().toLowerCase().contains(query) ||r.getName().toLowerCase().contains(query) || String.valueOf(r.getPostal()).toLowerCase().contains(query)) {
                         filteredModelList.add(r);
                     }
                 }
